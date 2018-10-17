@@ -1,0 +1,2 @@
+class SystemNode < ApplicationRecord
+end
