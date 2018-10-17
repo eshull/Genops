@@ -1,0 +1,2 @@
+class SystemLink < ApplicationRecord
+end

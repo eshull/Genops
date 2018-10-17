@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>System Links</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @system_links.each do |system_link| %>
+      <tr>
+        <td><%= link_to 'Show', system_link %></td>
+        <td><%= link_to 'Edit', edit_system_link_path(system_link) %></td>
+        <td><%= link_to 'Destroy', system_link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New System Link', new_system_link_path %>
