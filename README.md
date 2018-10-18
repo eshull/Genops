@@ -1,7 +1,12 @@
-# README
+# Genops System Management
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### User Stories:
+
+- As a user I want to: create new system nodes
+- As a user I want to: make connections between system nodes
+- As a user I want to: add configurations to a system node
+
+
 
 Things you may want to cover:
 

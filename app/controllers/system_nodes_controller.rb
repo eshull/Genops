@@ -69,6 +69,7 @@ class SystemNodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def system_node_params
-      params.fetch(:system_node, {})
+      params.require(:system_node).permit(:name, :address, :description)
     end
+
 end

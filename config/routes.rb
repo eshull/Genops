@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: "system_nodes#index"
   resources :configurations
   resources :system_links
   resources :system_nodes

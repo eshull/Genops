@@ -23,3 +23,11 @@
 <br>
 
 <%= link_to 'New System Node', new_system_node_path %>
+
+<h1>System Nodes</h1>
+
+<% @system_nodes.each do |system_node| %>
+  <%= system_node.name %> </br>
+  <%= system_node.address %> </br>
+  <%= system_node.description %> </br>
+<% end %>
