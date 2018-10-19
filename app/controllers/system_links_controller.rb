@@ -21,10 +21,23 @@ class SystemLinksController < ApplicationController
   def edit
   end
 
+
+  def create
+    @list = List.find(params[:list_id])
+    @task = @list.tasks.new(task_params)
+    if @task.save
+      redirect_to list_path(@task.list)
+    else
+      render :new
+    end
+  end
+
   # POST /system_links
   # POST /system_links.json
   def create
-    @system_link = SystemLink.new(system_link_params)
+    @system_node = SystemNode.find(params[:system_node_id])
+    @system_link = @system_node.targets.new(system_link_params)
+    # @system_link = SystemLink.new(system_link_params)
 
     respond_to do |format|
       if @system_link.save

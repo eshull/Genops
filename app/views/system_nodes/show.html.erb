@@ -2,3 +2,23 @@
 
 <%= link_to 'Edit', edit_system_node_path(@system_node) %> |
 <%= link_to 'Back', system_nodes_path %>
+
+
+<h1><%= @system_node.name %></h1>
+
+<% if !@system_links.nil? %>
+  <h4>Here are the system links for <%=@system_node.name%>:</h4>
+
+  <ul>
+    <% @system_links.each do |link| %>
+      <li>
+
+        <strong><%= link.name %></strong>
+
+        <%= link_to "Edit", edit_system_node_system_link_path(@system_node, link) %> |
+        <%= link_to "Delete", system_node_system_link_path(@system_node, link),
+                                 :data => {:confirm => "Are you sure?",
+                                                :method => "delete"} %>
+      </li>
+<% end %>
+<% end %>
