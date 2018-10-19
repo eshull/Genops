@@ -2,5 +2,19 @@
 
 <%= render 'form', system_node: @system_node %>
 
+
 <%= link_to 'Show', @system_node %> |
 <%= link_to 'Back', system_nodes_path %>
+<h1>System Node Connections</h1>
+
+<% @system_node.targets.each do |target| %>
+<%= target.name %>
+<%= target.address %>
+<%= target.description %>
+<% end %>
+
+<% @system_node.sources.each do |source| %>
+<%= source.name %>
+<%= source.address %>
+<%= source.description %>
+<% end %>

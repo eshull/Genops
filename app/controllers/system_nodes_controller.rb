@@ -1,6 +1,40 @@
 class SystemNodesController < ApplicationController
   before_action :set_system_node, only: [:show, :edit, :update, :destroy]
 
+  def update
+
+      # Get the node
+      @system_node = SystemNode.find_by_id(params[:id])
+      @system_links = @system_node.targets.update(update_params)
+
+      # First, we find the difference between the associations
+      # BEFORE the form was filled out, and what is being
+      # submitted.
+      # deleted_ass_ids = (
+      #   @system_node.links.collect(&:id) -
+      #   params[:system_node][:from_node_ids].reject(&:blank?).map(&:to_i)
+      # )
+      if @system_node.update(update_params)
+        # AFTER we update the system_node, destroy all the records
+        # that differ from before and after the form was
+        # submitted.
+        # deleted_ass_ids.each do |ass_id|
+        #   ids = [@system_node.id, ass_id]
+        #   SystemLink.where(
+        #     :from_node_id => ids,
+        #     :to_node_id => ids
+        #   ).destroy_all
+        # end
+        redirect_to(@system_node, :notice => 'Page saved!')
+      
+      else
+        render 'edit'
+      end
+    end
+
+
+
+
   # GET /system_nodes
   # GET /system_nodes.json
   def index
@@ -19,6 +53,7 @@ class SystemNodesController < ApplicationController
 
   # GET /system_nodes/1/edit
   def edit
+    @system_node = SystemNode.find(params[:id])
   end
 
   # POST /system_nodes
@@ -39,17 +74,17 @@ class SystemNodesController < ApplicationController
 
   # PATCH/PUT /system_nodes/1
   # PATCH/PUT /system_nodes/1.json
-  def update
-    respond_to do |format|
-      if @system_node.update(system_node_params)
-        format.html { redirect_to @system_node, notice: 'System node was successfully updated.' }
-        format.json { render :show, status: :ok, location: @system_node }
-      else
-        format.html { render :edit }
-        format.json { render json: @system_node.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #   respond_to do |format|
+  #     if @system_node.update(system_node_params)
+  #       format.html { redirect_to @system_node, notice: 'System node was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @system_node }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @system_node.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /system_nodes/1
   # DELETE /system_nodes/1.json
@@ -69,7 +104,11 @@ class SystemNodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def system_node_params
-      params.require(:system_node).permit(:name, :address, :description)
+      params.require(:system_node).permit(:name, :address, :description, :from_node_ids, :to_node_ids )
+    end
+
+    def update_params
+      params.require(:system_node).permit(:from_node_ids => [],:to_node_ids => [])
     end
 
 end
