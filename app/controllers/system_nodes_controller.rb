@@ -108,6 +108,10 @@ class SystemNodesController < ApplicationController
     #render "/system_nodes/#{source_id}/edit"
     redirect_to action: "edit", id: source_id
   end
+
+  def graph_viz
+
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_system_node
