@@ -110,7 +110,7 @@ class SystemNodesController < ApplicationController
   end
 
   def graph_viz
-
+    @system_node = SystemNode.find(params[:id])
   end
   private
     # Use callbacks to share common setup or constraints between actions.

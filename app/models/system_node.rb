@@ -11,6 +11,10 @@ class SystemNode < ApplicationRecord
   has_many :sources, :through => :to_node_links,
            :source => :from_node
 
+
+  def dot
+    "the dot method"
+  end
   # def links
   #   (from_node_links + to_node_links).flatten.uniq
   # end
