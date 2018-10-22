@@ -16,19 +16,24 @@
   <h2>Targets</h2>
   <%= render 'neighbor_list', nodes: @system_node.targets.to_a %>
 </div>
+<%= form_tag("/system_nodes/#{@system_node.id}/targets", method: "post") do %>
+  <select id="target_node_id" name="target_node_id">
+  <%= options_for_select(SystemNode.all.map { |n| [n.name, n.id] }) %>
+  </select>
+  <%= submit_tag("Add Target") %>
+<% end %>
+
 
 <div class="sources-list">
   <h2>Sources</h2>
   <%= render 'neighbor_list', nodes: @system_node.sources.to_a %>
 </div>
 
-
-
-
-<%= form_tag("/system_nodes/#{@system_node.id}/targets", method: "post") do %>
-<select id="target_node_id" name="target_node_id">
-<%= options_for_select(SystemNode.all.map { |n| [n.name, n.id] }) %>
-</select>
-<%= submit_tag("Add") %>
+<%= form_tag("/system_nodes/#{@system_node.id}/sources", method: "post") do %>
+  <select id="source_node_id" name="source_node_id">
+  <%= options_for_select(SystemNode.all.map { |n| [n.name, n.id] }) %>
+  </select>
+  <%= submit_tag("Add Source") %>
 <% end %>
+
 <% #= link_to 'Edit System Connection', system_links_path(@system_node) %>

@@ -97,20 +97,21 @@ class SystemNodesController < ApplicationController
   end
 
   def add_target()
-    puts "hello are you here "
-    #source_node = SystemNode.find(request.params['id'])
-    #target_node = SystemNode.find(request.params['target_node_id'])
-    #source_node.targets.add(target_node)
-     source_id = request.params['id']
-     l = SystemLink.create(from_node_id: source_id, to_node_id: request.params['target_node_id'])
-
-
-    #render "/system_nodes/#{source_id}/edit"
+    source_id = request.params['id']
+    l = SystemLink.create(from_node_id: source_id, to_node_id: request.params['target_node_id'])
     redirect_to action: "edit", id: source_id
+  end
+
+  def add_source()
+    target_id = request.params['id']
+    l = SystemLink.create(to_node_id: target_id, from_node_id: request.params['source_node_id'])
+    redirect_to action: "edit", id: target_id
   end
 
   def graph_viz
     @system_node = SystemNode.find(params[:id])
+
+    # render file: "/graphviz_to_d3example.html"
   end
   private
     # Use callbacks to share common setup or constraints between actions.

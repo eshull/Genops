@@ -1,29 +1,10 @@
-<h1>Graphs Here!</h1>
-
-<div >
-  <button id="show_graph_viz" type="button" name="button">Show Graph</button>
-</div>
-<div id="graph">
-  <%= @system_node.dot %>
-</div>
-
+<%= @system_node.hello %>
+<%= @system_node.dot %>
 <div id="graph" style="text-align: center;"></div>
 <script>
+console.log('<%= @system_node.hello %>');
 
-var dotSrc = `
-digraph {
-    graph [label="Click on a node or an edge to delete it" labelloc="t", fontsize="20.0" tooltip=" "]
-    node [style="filled"]
-    Node1 [id="NodeId1" label="N1" fillcolor="#d62728"]
-    Node2 [id="NodeId2" label="N2" fillcolor="#1f77b4"]
-    Node3 [id="NodeId3" label="N3" fillcolor="#2ca02c"]
-    Node4 [id="NodeId4" label="N4" fillcolor="#ff7f0e"]
-    Node1 -> Node2 [id="EdgeId12" label="E12"]
-    Node1 -> Node3 [id="EdgeId131" label="E13"]
-    Node2 -> Node3 [id="EdgeId23" label="E23"]
-    Node3 -> Node4 [id="EdgeId34" label="E34"]
-}
-`;
+var dotSrc = `<%= @system_node.dot.html_safe %>`;
 
 var graphviz = d3.select("#graph").graphviz();
 
