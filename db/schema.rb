@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_231552) do
+ActiveRecord::Schema.define(version: 2018_10_18_190641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,18 +25,21 @@ ActiveRecord::Schema.define(version: 2018_10_17_231552) do
     t.index ["system_node_id"], name: "index_configurations_on_system_node_id"
   end
 
+  create_table "system_links", force: :cascade do |t|
+    t.integer "from_node_id"
+    t.integer "to_node_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "system_nodes", force: :cascade do |t|
     t.string "name"
     t.string "address"
     t.string "description"
     t.text "status_check_how_to"
     t.text "status_check_script"
-    t.bigint "send_node_id"
-    t.bigint "receive_node_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["receive_node_id"], name: "index_system_nodes_on_receive_node_id"
-    t.index ["send_node_id"], name: "index_system_nodes_on_send_node_id"
   end
 
 end

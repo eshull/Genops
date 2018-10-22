@@ -23,3 +23,10 @@
 <br>
 
 <%= link_to 'New System Link', new_system_link_path %>
+
+<% @system_links.each do |system_link| %>
+  <h2><%= system_link.from_node_id %></h2>
+  <h3><%= link_to 'Show', system_link %></h3>
+  <h3><%= link_to 'Edit', edit_system_link_path(system_link) %></h3>
+  <h3><%= link_to 'Destroy', system_link, method: :delete, data: { confirm: 'Are you sure?' } %></h3>
+<% end %>

@@ -1,0 +1,25 @@
+
+<% if local_assigns.has_key?(:nodes) %>
+
+  <% else %>
+    No Nodes
+<% end %>
+  <table>
+    <tr>
+      <th align="left">System</th>
+      <th align="left">Address</th>
+      <th align="left">Description</th>
+    </tr>
+    <% if nodes %>
+  <% nodes.each do |target| %>
+
+  <tr>
+    <td><%= target.name %></td>
+    <td><%= target.address %></td>
+    <td><%= target.description %></td>
+  </tr>
+  <% end %>
+  <% else %>
+  <tr><td>None</td><tr>
+  <% end %>
+</table>

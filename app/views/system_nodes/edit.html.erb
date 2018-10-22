@@ -1,6 +1,34 @@
+<%
+  nodes = local_assigns[:nodes]
+%>
 <h1>Editing System Node</h1>
 
 <%= render 'form', system_node: @system_node %>
 
+
 <%= link_to 'Show', @system_node %> |
 <%= link_to 'Back', system_nodes_path %>
+<h1><%=@system_node.name %> System Node Connections</h1>
+
+
+<div class="targets-list">
+  <h2>Targets</h2>
+  <%= render 'neighbor_list', nodes: @system_node.targets.to_a %>
+</div>
+
+<div class="sources-list">
+  <h2>Sources</h2>
+  <%= render 'neighbor_list', nodes: @system_node.sources.to_a %>
+
+</div>
+
+
+
+
+<%= form_tag("/system_nodes/#{@system_node.id}/targets", method: "post") do %>
+<select id="target_node_id" name="target_node_id">
+<%= options_for_select(SystemNode.all.map { |n| [n.name, n.id] }) %>
+</select>
+<%= submit_tag("Add") %>
+<% end %>
+<% #= link_to 'Edit System Connection', system_links_path(@system_node) %>

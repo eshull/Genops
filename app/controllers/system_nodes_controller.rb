@@ -19,6 +19,7 @@ class SystemNodesController < ApplicationController
 
   # GET /system_nodes/1/edit
   def edit
+    @system_node = SystemNode.find(params[:id])
   end
 
   # POST /system_nodes
@@ -61,6 +62,18 @@ class SystemNodesController < ApplicationController
     end
   end
 
+  def add_target()
+    puts "hello are you here "
+    #source_node = SystemNode.find(request.params['id'])
+    #target_node = SystemNode.find(request.params['target_node_id'])
+    #source_node.targets.add(target_node)
+     source_id = request.params['id']
+     l = SystemLink.create(from_node_id: source_id, to_node_id: request.params['target_node_id'])
+
+
+    #render "/system_nodes/#{source_id}/edit"
+    redirect_to action: "edit", id: source_id
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_system_node
@@ -69,6 +82,11 @@ class SystemNodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def system_node_params
-      params.fetch(:system_node, {})
+      params.require(:system_node).permit(:name, :address, :description, :from_node_ids, :to_node_ids )
     end
+
+    def update_params
+      params.require(:system_node).permit(:from_node_ids => [],:to_node_ids => [])
+    end
+
 end

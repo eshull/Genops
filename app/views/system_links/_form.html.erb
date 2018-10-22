@@ -15,3 +15,18 @@
     <%= form.submit %>
   </div>
 <% end %>
+<%= simple_form_for @system_link do |f| %>
+  <%= f.input :system_link do %>
+    <%= f.select :system_link, SystemLink.all.map { |r| [r.name, r.id, { class: r.targets.from_node_id }] }, include_blank: true %>
+  <% end %>
+<% end %>
+
+
+
+<%= simple_form_for [@system_node, @system_link] do |form| %>
+    <%= form.association :targets, collection: SystemNode.all, prompt: "Choose a System Target" %>
+<% end %>
+
+<%= simple_form_for [@system_node, @system_link] do |form| %>
+    <%= form.association :sources, collection: SystemNode.all, prompt: "Choose a System Source" %>
+<% end %>
