@@ -1,32 +1,35 @@
-<%= simple_form_for @system_node do |form| %>
-  <% if system_node.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(system_node.errors.count, "error") %> prohibited this system_node from being saved:</h2>
 
-      <ul>
-      <% system_node.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="col-md-10">
+  <%= simple_form_for @system_node do |form| %>
+    <% if system_node.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(system_node.errors.count, "error") %> prohibited this system_node from being saved:</h2>
+
+        <ul>
+        <% system_node.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :name, class: 'control-label' %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= form.label :address, class: 'control-label' %>
+      <%= form.text_field :address, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= form.label :description, class: 'control-label' %>
+      <%= form.text_area :description, class: 'form-control' %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :address %>
-    <%= form.text_field :address %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
