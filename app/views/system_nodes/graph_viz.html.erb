@@ -1,0 +1,48 @@
+<%= @system_node.hello %>
+<%= @system_node.dot %>
+<div id="graph" style="text-align: center;"></div>
+<script>
+console.log('<%= @system_node.hello %>');
+
+var dotSrc = `<%= @system_node.dot.html_safe %>`;
+
+var graphviz = d3.select("#graph").graphviz();
+
+function render(dotSrc) {
+    console.log('DOT source =', dotSrc);
+    var dotSrcLines = dotSrc.split('\n');
+
+    transition1 = d3.transition()
+        .delay(100)
+        .duration(1000);
+
+    graphviz
+        .transition(transition1)
+        .renderDot(dotSrc);
+
+    nodes = d3.selectAll('.node,.edge');
+    nodes
+        .on("click", function () {
+            var title = d3.select(this).selectAll('title').text().trim();
+            var text = d3.select(this).selectAll('text').text();
+            var id = d3.select(this).attr('id');
+            var class1 = d3.select(this).attr('class');
+            dotElement = title.replace('->',' -> ');
+            console.log('Element id="%s" class="%s" title="%s" text="%s" dotElement="%s"', id, class1, title, text, dotElement);
+            console.log('Finding and deleting references to %s "%s" from the DOT source', class1, dotElement);
+            for (i = 0; i < dotSrcLines.length;) {
+                if (dotSrcLines[i].indexOf(dotElement) >= 0) {
+                    console.log('Deleting line %d: %s', i, dotSrcLines[i]);
+                    dotSrcLines.splice(i, 1);
+                } else {
+                    i++;
+                }
+            }
+            dotSrc = dotSrcLines.join('\n');
+            render(dotSrc);
+        });
+}
+
+render(dotSrc);
+
+</script>
