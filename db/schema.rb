@@ -15,14 +15,14 @@ ActiveRecord::Schema.define(version: 2018_10_18_190641) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "configurations", force: :cascade do |t|
+  create_table "settings", force: :cascade do |t|
     t.text "key"
     t.text "value"
     t.text "location"
     t.bigint "system_node_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["system_node_id"], name: "index_configurations_on_system_node_id"
+    t.index ["system_node_id"], name: "index_settings_on_system_node_id"
   end
 
   create_table "system_links", force: :cascade do |t|
