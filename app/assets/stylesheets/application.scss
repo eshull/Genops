@@ -16,3 +16,15 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+.navbar {
+  background-color: #192b47;
+}
+
+.navbar a {
+  color: white;
+}
+
+.navbar a:hover {
+  color: darkgrey;
+}
