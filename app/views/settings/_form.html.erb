@@ -14,8 +14,8 @@
     <% end %>
 
     <div class="field">
-      <%= form.label :system_node_id, class: 'control-label' %>
-      <%= form.input :system_node_id, collection: @system_nodes.to_a, class: 'form-control' %>
+
+      <%= form.input :system_node_id, collection: @system_nodes, class: 'form-control', label: 'Select which Node this Setting is for: ' %>
 
     </div>
 

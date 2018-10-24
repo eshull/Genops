@@ -1,63 +1,30 @@
 <p id="notice"><%= notice %></p>
 
-<h1>System Nodes</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @system_nodes.each do |system_node| %>
-      <tr>
-        <td><%= link_to 'Show', system_node %></td>
-        <td><%= link_to 'Edit', edit_system_node_path(system_node) %></td>
-        <td><%= link_to 'Destroy', system_node, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
 
 <%= link_to 'New System Node', new_system_node_path %>
 
 <h1>System Nodes</h1>
 
 <% @system_nodes.each do |system_node| %>
-  <%= system_node.name %> </br>
-  <%= system_node.address %> </br>
-  <%= system_node.description %> </br>
-  sources: <%= system_node.sources.count %> </br>
-  targets: <%= system_node.targets.count %> </br>
-<% end %>
-<div class="container row">
-  <div class="card-deck">
-    <div class="panel">
-      <img class="panel-img-top" src=".../100px200/" alt="Card image cap">
-      <div class="panel-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src=".../100px200/" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src=".../100px200/" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
+  <div class="col-md-4">
+    <h2><%= system_node.name %></h2>  </br>
+    <%= system_node.address %> </br>
+    <%= system_node.description %> </br>
+    settings: <%= system_node.settings.count %> </br>
+    sources: <%= system_node.sources.count %> </br>
+    targets: <%= system_node.targets.count %> </br>
+    <%= link_to 'Show', system_node %>
+    <%= link_to 'Edit', edit_system_node_path(system_node) %>
+    <%= link_to 'Destroy', system_node, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <div class="node-settings">
+      <% system_node.settings.each do |setting| %>
+        <h2>Setting </h2>
+        Key: <%= setting.key %></br>
+        Value: <%= setting.value %></br>
+        Location: <%= setting.location %>
+      <% end %>
     </div>
   </div>
-</div>
+
+<% end %>
