@@ -20,7 +20,7 @@
 <div class="col-md-12">
   <%= link_to 'Show', @system_node %> |
   <%= link_to 'Back', system_nodes_path %> |
-  <%= link_to 'Edit Settings for Node', edit_setting_path %>
+  <%= link_to 'New Setting for Node', new_system_node_setting_path(@system_node) %>
   <h1>System Node Connections for <%= @system_node.name %> </h1>
 </div>
 

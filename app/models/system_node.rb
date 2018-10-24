@@ -67,4 +67,12 @@ class SystemNode < ApplicationRecord
     "hello"
   end
   # Call @system_node.links to see all the associated links
+
+  def method_missing(m, *args, &block)
+    for s in self.settings
+      return s.value if s.key==m.to_s
+    end
+    puts "There is no method #{m}"
+    return nil
+  end
 end

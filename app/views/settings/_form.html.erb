@@ -1,6 +1,6 @@
 
 <div class="col-md-10">
-  <%= simple_form_for @setting do |form| %>
+  <%= simple_form_for [@system_node, @setting] do |form| %>
     <% if setting.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
@@ -15,10 +15,11 @@
 
     <div class="field">
 
-      <%= form.input :system_node_id, collection: @system_nodes, class: 'form-control', label: 'Select which Node this Setting is for: ' %>
+      <%#= form.input :system_node_id, collection: @system_nodes, class: 'form-control', label: 'Select which Node this Setting is for: ' %>
 
     </div>
 
+    
     <div class="field">
       <%= form.label :key, class: 'control-label' %>
       <%= form.text_field :key, class: 'form-control' %>
@@ -33,6 +34,7 @@
       <%= form.label :location, class: 'control-label' %>
       <%= form.text_field :location, class: 'form-control' %>
     </div>
+
 
     <div class="actions">
       <%= form.submit %>
