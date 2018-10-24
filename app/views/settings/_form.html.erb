@@ -1,17 +1,41 @@
-<%= form_with(model: setting, local: true) do |form| %>
-  <% if setting.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
 
-      <ul>
-      <% setting.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="col-md-10">
+  <%= simple_form_for @setting do |form| %>
+    <% if setting.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
+
+        <ul>
+        <% setting.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+
+      <%= form.input :system_node_id, collection: @system_nodes, class: 'form-control', label: 'Select which Node this Setting is for: ' %>
+
+    </div>
+
+    <div class="field">
+      <%= form.label :key, class: 'control-label' %>
+      <%= form.text_field :key, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= form.label :value, class: 'control-label' %>
+      <%= form.text_field :value, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= form.label :location, class: 'control-label' %>
+      <%= form.text_field :location, class: 'form-control' %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

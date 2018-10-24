@@ -14,11 +14,15 @@ class SettingsController < ApplicationController
 
   # GET /settings/new
   def new
+    @system_nodes = SystemNode.all
     @setting = Setting.new
   end
 
   # GET /settings/1/edit
   def edit
+    @system_nodes = SystemNode.all
+    system_node = SystemNode.find(params[:id])
+    @setting = Setting.find(params[system_node])
   end
 
   # POST /settings
@@ -69,6 +73,6 @@ class SettingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def setting_params
-      params.fetch(:setting, {})
+      params.require(:setting).permit(:key, :value, :location, :system_node_id)
     end
 end
