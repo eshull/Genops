@@ -1,5 +1,5 @@
 class SystemNode < ApplicationRecord
-  has_many :configurations
+  has_many :settings
 
   has_many :from_node_links, :foreign_key => :from_node_id,
           :class_name => 'SystemLink'
