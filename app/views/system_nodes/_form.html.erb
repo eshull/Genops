@@ -13,21 +13,20 @@
       </div>
     <% end %>
 
-    <div class="field">
-      <%= form.label :name, class: 'control-label' %>
-      <%= form.text_field :name, class: 'form-control' %>
-    </div>
+    <% default_fields = [:name, :address, :description] %>
 
-    <div class="field">
-      <%= form.label :address, class: 'control-label' %>
-      <%= form.text_field :address, class: 'form-control' %>
-    </div>
+    <table>
 
-    <div class="field">
-      <%= form.label :description, class: 'control-label' %>
-      <%= form.text_area :description, class: 'form-control' %>
-    </div>
+      <% default_fields.each do |f| %>
+        <tr>
+          <td><%= form.label f, class: 'control-label' %></td>
+          <td>  <%= form.text_field f, class: 'form-control' %></tr>
+      <% end %>
 
+      <% @system_node.settings.each do |s| %>
+        <tr><td><%= s.key %></td><td><%= s.value %><td><%= link_to "Edit", edit_system_node_setting_path(s) %></tr>
+      <% end %>
+    </table>
     <div class="actions">
       <%= form.submit %>
     </div>

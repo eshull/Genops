@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   root to: "system_nodes#index"
-resources :settings
+
   # resources :system_links
   # resources :system_nodes
   resources :system_nodes do
     resources :system_links
-
+    resources :settings
   end
 
   post '/system_nodes/:id/targets', to: 'system_nodes#add_target'

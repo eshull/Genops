@@ -14,25 +14,35 @@ class SettingsController < ApplicationController
 
   # GET /settings/new
   def new
+    @system_node = SystemNode.find(params[:system_node_id])
+    @setting = @system_node.settings.new(setting_params)
     @system_nodes = SystemNode.all
-    @setting = Setting.new
+    # @setting = Setting.new
   end
 
   # GET /settings/1/edit
   def edit
+    @setting = Setting.find(params[:system_node_id])
+    @system_node = SystemNode.find(params[:id])
     @system_nodes = SystemNode.all
-    system_node = SystemNode.find(params[:id])
-    @setting = Setting.find(params[system_node])
+    # system_node = SystemNode.find(params[:id])
+    # @setting = Setting.find(params[system_node.id])
   end
 
   # POST /settings
   # POST /settings.json
   def create
-    @setting = Setting.new(setting_params)
+    @system_node = SystemNode.find(params[:system_node_id])
+    @setting = @system_node.settings.new()
+#binding.pry
+    @setting.key = params[:setting][:key]
+    @setting.value = params[:setting][:value]
+    @setting.location = params[:setting][:location]
+
 
     respond_to do |format|
       if @setting.save
-        format.html { redirect_to @setting, notice: 'Setting was successfully created.' }
+        format.html { redirect_to edit_system_node_path(@system_node), notice: 'Setting was successfully created.' }
         format.json { render :show, status: :created, location: @setting }
       else
         format.html { render :new }
@@ -46,7 +56,7 @@ class SettingsController < ApplicationController
   def update
     respond_to do |format|
       if @setting.update(setting_params)
-        format.html { redirect_to @setting, notice: 'Setting was successfully updated.' }
+        format.html { redirect_to edit_system_node_setting_path(@setting), notice: 'Setting was successfully updated.' }
         format.json { render :show, status: :ok, location: @setting }
       else
         format.html { render :edit }
@@ -73,6 +83,6 @@ class SettingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def setting_params
-      params.require(:setting).permit(:key, :value, :location, :system_node_id)
+        params.permit(:setting) #, :key, :value, :location, #:system_node_id )
     end
 end
