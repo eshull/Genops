@@ -4,42 +4,65 @@
 <script>
 console.log('<%= @system_node.hello %>');
 
+// All of the dot code in a string
 var dotSrc = `<%= @system_node.dot.html_safe %>`;
 
+// the graph itself in a div
 var graphviz = d3.select("#graph").graphviz();
 
+// function to render dot code using dotSrc
 function render(dotSrc) {
     console.log('DOT source =', dotSrc);
+
+    // Split incoming string by line
     var dotSrcLines = dotSrc.split('\n');
 
+    // Transition animation
     transition1 = d3.transition()
         .delay(100)
         .duration(1000);
 
+    // applying transitions to the graph
     graphviz
         .transition(transition1)
         .renderDot(dotSrc);
 
+    // Grabbing all nodes and edges
     nodes = d3.selectAll('.node,.edge');
+
+    // On click function for node change
     nodes
         .on("click", function () {
+          // On click select all titles of this
             var title = d3.select(this).selectAll('title').text().trim();
+          // On click select all text of this
             var text = d3.select(this).selectAll('text').text();
+          // On click select id of this
             var id = d3.select(this).attr('id');
+          // On click select class of this
             var class1 = d3.select(this).attr('class');
+          // Replace titles with arrows
             dotElement = title.replace('->',' -> ');
+
+            // Console log current element id, class, title, text and dotElement
             console.log('Element id="%s" class="%s" title="%s" text="%s" dotElement="%s"', id, class1, title, text, dotElement);
+
+            // Console log record of things deleted from click
             console.log('Finding and deleting references to %s "%s" from the DOT source', class1, dotElement);
-            for (i = 0; i < dotSrcLines.length;) {
-                if (dotSrcLines[i].indexOf(dotElement) >= 0) {
-                    console.log('Deleting line %d: %s', i, dotSrcLines[i]);
-                    dotSrcLines.splice(i, 1);
-                } else {
-                    i++;
-                }
-            }
-            dotSrc = dotSrcLines.join('\n');
-            render(dotSrc);
+
+            // Loop to find all associated links and delete each one
+            // for (i = 0; i < dotSrcLines.length;) {
+            //     if (dotSrcLines[i].indexOf(dotElement) >= 0) {
+            //         console.log('Deleting line %d: %s', i, dotSrcLines[i]);
+            //         dotSrcLines.splice(i, 1);
+            //     } else {
+            //         i++;
+            //     }
+            // }
+            // // Join lines in dot code string again
+            // dotSrc = dotSrcLines.join('\n');
+            // // Render new graph after change from click
+            // render(dotSrc);
         });
 }
 
