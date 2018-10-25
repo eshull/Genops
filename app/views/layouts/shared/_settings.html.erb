@@ -10,18 +10,18 @@
     <%= link_to 'Edit', edit_system_node_path(system_node) %>
     <%= link_to 'Destroy', system_node, method: :delete, data: { confirm: 'Are you sure?' } %>
     <div class="node-settings">
+      <table class="table">
+       <tr>
+         <th>Key:</th>
+         <th>Value:</th>
+       </tr>
       <% system_node.settings.each do |setting| %>
-        <table class="table">
-         <tr>
-           <th>Key:</th>
-           <th>Value:</th>
-         </tr>
-         <tr>
-           <td><%= setting.key %></td>
-           <td><%= setting.value %></td>
-         </tr>
-       </table> 
-      <% end %>
+           <tr>
+             <td>Key: <%= setting.key %></td>
+             <td>Value: <%= setting.value %></td>
+           </tr>
+        <% end %>
+      </table>
     </div>
   </div>
 
