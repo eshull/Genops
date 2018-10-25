@@ -12,6 +12,11 @@ class SystemNode < ApplicationRecord
            :source => :from_node
 
 
+  def dot2
+    g = Graph.new
+    g.add_node(self, 2, 2)
+    g.to_dot
+  end
   def dot
     nodes = {}
 

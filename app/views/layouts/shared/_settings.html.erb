@@ -1,0 +1,28 @@
+<% @system_nodes.each do |system_node| %>
+  <div class="col-md-4">
+    <h2><%= system_node.name %></h2>  </br>
+    <%= system_node.address %> </br>
+    <%= system_node.description %> </br>
+    settings: <%= system_node.settings.count %> </br>
+    sources: <%= system_node.sources.count %> </br>
+    targets: <%= system_node.targets.count %> </br>
+    <%= link_to 'Show', system_node %>
+    <%= link_to 'Edit', edit_system_node_path(system_node) %>
+    <%= link_to 'Destroy', system_node, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <div class="node-settings">
+      <% system_node.settings.each do |setting| %>
+        <table class="table">
+         <tr>
+           <th>Key:</th>
+           <th>Value:</th>
+         </tr>
+         <tr>
+           <td><%= setting.key %></td>
+           <td><%= setting.value %></td>
+         </tr>
+       </table> 
+      <% end %>
+    </div>
+  </div>
+
+<% end %>

@@ -47,8 +47,10 @@ function render(dotSrc) {
             // Console log current element id, class, title, text and dotElement
             console.log('Element id="%s" class="%s" title="%s" text="%s" dotElement="%s"', id, class1, title, text, dotElement);
 
+            console.log('NODE ID IS: id="%s"', id);
+
             // Console log record of things deleted from click
-            console.log('Finding and deleting references to %s "%s" from the DOT source', class1, dotElement);
+            // console.log('Finding and deleting references to %s "%s" from the DOT source', class1, dotElement);
 
             // Loop to find all associated links and delete each one
             // for (i = 0; i < dotSrcLines.length;) {
