@@ -51,16 +51,12 @@ function render(dotSrc) {
             console.log('NODE ID IS: id="%s"', id);
 
             var node = (this).getBoundingClientRect()
+            var positionLeft = node.left - 30;
+            var positionTop = node.top + 10;
             console.log("Left position here " + node.left);
             console.log("Top position here " + node.top);
 
-            $('body').append('<div style="background: blue; position: absolute; left:'+ node.left +'px; top:' + node.top + 'px;">two</div>')
-            // <div id="one">one</div>
-            // var d1 = document.getElementById('node2');
-            // $('body').append(d1.insertAdjacentHTML('afterend', '<div id="two">two</div>'));
-
-            // At this point, the new structure is:
-            // <div id="one">one</div><div id="two">two</div>
+            $('body').append('<div style="background: blue; position: absolute; left:'+ positionLeft + 'px; top:' + positionTop + 'px;">two</div>')
 
             $.getJSON('/system_nodes/' + id + '/settings.json').done(function(data){
               console.log("the settings data is")
