@@ -11,14 +11,38 @@ class SystemNode < ApplicationRecord
   has_many :sources, :through => :to_node_links,
            :source => :from_node
 
+  def get_setting(key)
+    for setting in self.settings
+      return setting.value if setting.key==key
+    end
+    return nil
+  end
 
   def dot2
     g = Graph.new
     g.add_node(self, 2, 2)
     g.to_dot
   end
-  def dot
-    nodes = {}
+
+  def node_label(attr_names)
+    #this will make an html label in dot syntax
+    #with the node name on the first line and a row for
+    #any of the provided attr_names if and only if that node has a value
+    #for that parameter
+    node_label = "<#{self.name}<br/>"
+
+    attr_names.each {|k|
+      v = self.get_setting(k)
+      if v
+        node_label+="#{k}: #{v}"
+      end
+
+    }
+
+    node_label+=">"
+  end
+  def dot(attrs_to_show=['github','host'])
+    nodes = {self.id=>self}
 
     self.sources.each do |n|
       nodes[n.id] = n
@@ -28,7 +52,13 @@ class SystemNode < ApplicationRecord
       nodes[n.id]=n
     end
 
-    nodes_list = nodes.map {|id,node| "node_#{id} [label=\"#{node.name}\"]"}
+    nodes_list = nodes.map {|id,node|
+
+      #node_label = """#{node.name}"""
+
+      "node_#{id} [label=#{node.node_label(attrs_to_show)}]"
+
+    }
 
     edges_list = self.sources.map { |n| "node_#{n.id} -> node_#{self.id}" }
     edges_list += self.targets.map { |n| "node_#{self.id} -> node_#{n.id}" }

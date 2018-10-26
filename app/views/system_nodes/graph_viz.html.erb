@@ -64,8 +64,9 @@ function render(dotSrc) {
             console.log("route id" + routeId);
             var settingsJson = $.getJSON('/system_nodes/' + routeId + '/settings.json').done(function(data){
               console.log("the settings data is")
-              console.log("parsed json: " + data[0])
+              console.log("parsed json: " + data.parse)
             })
+            console.log("json object:" + JSON.parse(settingsJson));
 
             $('a').on('click', function(){
               $(this).closest("#close").remove();
