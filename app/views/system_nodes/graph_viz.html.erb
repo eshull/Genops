@@ -1,7 +1,6 @@
 <%= @system_node.hello %>
 <%= @system_node.dot %>
 <div id="graph" style="text-align: center;"></div>
-<div id="graph-info">x</div>
 <script>
 console.log('<%= @system_node.hello %>');
 
@@ -51,12 +50,12 @@ function render(dotSrc) {
             console.log('NODE ID IS: id="%s"', id);
 
             var node = (this).getBoundingClientRect()
-            var positionLeft = node.left - 30;
-            var positionTop = node.top + 10;
+            var positionLeft = node.left - 180;
+            var positionTop = node.top;
             console.log("Left position here " + node.left);
             console.log("Top position here " + node.top);
 
-            $('body').append('<div style="background: lightgrey; position: absolute; left:'+ positionLeft + 'px; top:' + positionTop + 'px;"><a id="close">x</a></div>')
+            $('body').append('<div id="close" class="graph-settings" style="left:'+ positionLeft + 'px; top:' + positionTop + 'px;"><a>x</a></div>')
 
 
 
