@@ -58,7 +58,10 @@ function render(dotSrc) {
 
             $('body').append('<div style="background: blue; position: absolute; left:'+ positionLeft + 'px; top:' + positionTop + 'px;">two</div>')
 
-            $.getJSON('/system_nodes/' + id + '/settings.json').done(function(data){
+            var routeId = dotElement.replace('node_','');
+            console.log(dotElement);
+            console.log("route id" + routeId);
+            $.getJSON('/system_nodes/' + routeId + '/settings.json').done(function(data){
               console.log("the settings data is")
               console.log(data)
             })
