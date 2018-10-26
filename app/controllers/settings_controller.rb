@@ -4,7 +4,8 @@ class SettingsController < ApplicationController
   # GET /settings
   # GET /settings.json
   def index
-    @settings = Setting.all
+    @system_node = SystemNode.find(params[:system_node_id])
+    @settings = @system_node.settings
   end
 
   # GET /settings/1

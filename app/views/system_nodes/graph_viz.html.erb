@@ -1,6 +1,7 @@
 <%= @system_node.hello %>
 <%= @system_node.dot %>
 <div id="graph" style="text-align: center;"></div>
+<div id="graph-info">x</div>
 <script>
 console.log('<%= @system_node.hello %>');
 
@@ -48,6 +49,11 @@ function render(dotSrc) {
             console.log('Element id="%s" class="%s" title="%s" text="%s" dotElement="%s"', id, class1, title, text, dotElement);
 
             console.log('NODE ID IS: id="%s"', id);
+
+            $.getJSON('/system_nodes/' + id + '/settings.json').done(function(data){
+              console.log("the settings data is")
+              console.log(data)
+            })
 
             // Console log record of things deleted from click
             // console.log('Finding and deleting references to %s "%s" from the DOT source', class1, dotElement);
