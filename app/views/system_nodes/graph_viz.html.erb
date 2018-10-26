@@ -56,15 +56,22 @@ function render(dotSrc) {
             console.log("Left position here " + node.left);
             console.log("Top position here " + node.top);
 
-            $('body').append('<div style="background: blue; position: absolute; left:'+ positionLeft + 'px; top:' + positionTop + 'px;">two</div>')
+            $('body').append('<div style="background: lightgrey; position: absolute; left:'+ positionLeft + 'px; top:' + positionTop + 'px;"><a id="close">x</a></div>')
+
+
 
             var routeId = dotElement.replace('node_','');
             console.log(dotElement);
             console.log("route id" + routeId);
-            $.getJSON('/system_nodes/' + routeId + '/settings.json').done(function(data){
+            var settingsJson = $.getJSON('/system_nodes/' + routeId + '/settings.json').done(function(data){
               console.log("the settings data is")
-              console.log(data)
+              console.log("parsed json: " + data[0])
             })
+
+            $('a').on('click', function(){
+              $(this).closest("#close").remove();
+            });
+
 
             // Console log record of things deleted from click
             // console.log('Finding and deleting references to %s "%s" from the DOT source', class1, dotElement);
