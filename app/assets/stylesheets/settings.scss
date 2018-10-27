@@ -4,3 +4,20 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
+.graph-settings {
+  position: absolute;
+  width: 150px;
+  height: 75px;
+  background-color: white;
+  box-shadow: 5px 5px 20px #b1b1b1;
+  padding: 20px;
+}
+
+.graph-settings a {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  color: black;
+}

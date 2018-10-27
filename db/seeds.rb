@@ -9,8 +9,12 @@
 SystemNode.destroy_all
 Setting.destroy_all
 
-SystemNode.create!(name: 'Reporter', address: 'reporter address example', description: 'reporter description example')
+r=SystemNode.create!(name: 'Reporter', address: 'reporter address example', description: 'reporter description example')
 
 SystemNode.create!(name: 'Reviewer', address: 'reviewer address example', description: 'reviewer description example')
 
 SystemNode.create!(name: 'Cerner', address: 'cerner address example', description: 'cerner description example')
+
+SystemNode.create!(name: 'The Blade', address: 'The Blade address example', description: 'the blade description example')
+
+SystemNode.create!(name: 'Thing 1', address: 'Thing 1 address example', description: 'Thing 1 description example')

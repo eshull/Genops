@@ -1,2 +1,2 @@
 json.extract! setting, :id, :created_at, :updated_at
-json.url setting_url(setting, format: :json)
+#json.url settings_url(setting, format: :json)
