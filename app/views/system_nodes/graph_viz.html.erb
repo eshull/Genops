@@ -33,6 +33,8 @@ function render(dotSrc) {
     // On click function for node change
     nodes
         .on("click", function () {
+
+
           // On click select all titles of this
             var title = d3.select(this).selectAll('title').text().trim();
           // On click select all text of this
@@ -60,13 +62,15 @@ function render(dotSrc) {
 
 
             var routeId = dotElement.replace('node_','');
+
+  
             console.log(dotElement);
             console.log("route id" + routeId);
-            var settingsJson = $.getJSON('/system_nodes/' + routeId + '/settings.json').done(function(data){
-              console.log("the settings data is")
-              console.log("parsed json: " + data.parse)
-            })
-            console.log("json object:" + JSON.parse(settingsJson));
+
+            // var json = $.getJSON('/system_nodes/' + routeId + '/settings.json').done(function(data){
+            //   console.log("the settings data is")
+            //   // console.log("parsed json: " + obj)
+            // })
 
             $('a').on('click', function(){
               $(this).closest("#close").remove();

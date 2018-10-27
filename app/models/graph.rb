@@ -1,10 +1,12 @@
 class Graph
   #a structure to represent the nodes and edges
   #for a particular graph/network view
+  attr_accessor :attrs_to_show
 
   def initialize
     @nodes= {}
     @links = {}
+    self.attrs_to_show = ['github','host']
   end
 
 
@@ -14,7 +16,7 @@ class Graph
       self.add_edges(node.to_node_links)
       if layers_of_sources > 1
         node.sources.each do |s|
-          self.add_node(s, layers_of_sources = layers_of_sources-1, layers_of_targets = 0)
+          self.add_node(s, layers_of_sources = layers_of_sources-1, layers_of_targets = 1)
         end
       end
     end
@@ -24,7 +26,7 @@ class Graph
 
       if layers_of_targets > 1
         node.targets.each do |s|
-          self.add_node(s, layers_of_sources= 0, layers_of_targets = layers_of_targets-1)
+          self.add_node(s, layers_of_sources= 1, layers_of_targets = layers_of_targets-1)
         end
       end
     end
@@ -38,10 +40,11 @@ class Graph
       @nodes[l.to_node_id] = l.to_node
     end
   end
-  def to_dot
-    nodes_list = @nodes.map {|id,node| "node_#{id} [label=\"#{node.name}\"]"}
 
-    edges_list = @links.map { |l| "node_#{l.from_node_id} -> node_#{l.to_node_id}" }
+  def to_dot
+    nodes_list = @nodes.map {|id,node| "node_#{id} [label=#{node.node_label(self.attrs_to_show)}] [URL=\"http://localhost:3001/system_nodes/#{id}/graph\"] " }
+
+    edges_list = @links.map { |id,l| "node_#{l.from_node_id} -> node_#{l.to_node_id}" }
 
     "digraph {
         #{(nodes_list + edges_list).join(";\n")};

@@ -18,9 +18,10 @@ class SystemNode < ApplicationRecord
     return nil
   end
 
-  def dot2
+  def dot2(attrs_to_show=['github','host'])
     g = Graph.new
-    g.add_node(self, 2, 2)
+    g.attrs_to_show = attrs_to_show
+    g.add_node(self, 4, 4)
     g.to_dot
   end
 
@@ -36,32 +37,33 @@ class SystemNode < ApplicationRecord
       if v
         node_label+="#{k}: #{v}"
       end
-
     }
-
     node_label+=">"
   end
-  def dot(attrs_to_show=['github','host'])
-    nodes = {self.id=>self}
 
+  # attrs_to_show is hard coded or default? here in the params
+  def dot(attrs_to_show=['github','host'])
+    return dot2(attrs_to_show=['github','host'])
+
+    # creation of initial self node
+    nodes = {self.id=>self}
+    # creation of nodes from sources
     self.sources.each do |n|
       nodes[n.id] = n
     end
-
+    # creation of nodes from targets
     self.targets.each do |n|
       nodes[n.id]=n
     end
 
+  # creation of dot language nodes list from nodes
     nodes_list = nodes.map {|id,node|
-
-      #node_label = """#{node.name}"""
-
-      "node_#{id} [label=#{node.node_label(attrs_to_show)}]"
-
+      # output example: "node_19 [label=<Reporter<br/>>]"
+      "node_#{id} [label=#{node.node_label(attrs_to_show)} fillcolor=\"#d62728\"]"
     }
-
+    # creation of edges list in dot notation
     edges_list = self.sources.map { |n| "node_#{n.id} -> node_#{self.id}" }
-    edges_list += self.targets.map { |n| "node_#{self.id} -> node_#{n.id}" }
+    edges_list += self.targets.map { |n| "node_#{self.id} -> node_#{n.id} " }
 
 
     "digraph {
@@ -69,18 +71,6 @@ class SystemNode < ApplicationRecord
     }"
   end
 
-  def simpler_dot
-    'digraph {
-        Node1;
-        Node2;
-        Node3;
-        Node4 [shape=cylinder];
-        Node1 -> Node2;
-        Node1 -> Node3;
-        Node2 -> Node3;
-        Node3 -> Node4;
-    }'
-  end
   def sample_dot
     'digraph {
         graph [label="Click on a node or an edge to delete it" labelloc="t", fontsize="20.0" tooltip=" "]
@@ -95,13 +85,10 @@ class SystemNode < ApplicationRecord
         Node3 -> Node4 [id="EdgeId34" label="E34"]
     }'
   end
-  # def links
-  #   (from_node_links + to_node_links).flatten.uniq
-  # end
+
   def hello
     "hello"
   end
-  # Call @system_node.links to see all the associated links
 
   def method_missing(m, *args, &block)
     for s in self.settings

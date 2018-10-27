@@ -1,16 +1,17 @@
-Nodes:
-  NgsReporterApp:
+NgsReporterApp:
     environment: "production"
     github: "https://github.com/pdxmolab/NgsReporter.git"
     http: "http://170.220.59.152:8345"
     https: "https://ngsreporter.mgl.providence.org"
     Targets:
-	- NgsReviewerApp
-	- UnoPdf
-  
-  NgsReviewerApp:
-    environment: "production"
-    github: "https://github.com/pdxmolab/NgsReporter.git"
-    http: "http://170.220.59.150:8345"
-    https: "https://ngsreviewer.mgl.providence.org"
-
+	     - NgsReviewerApp
+	     - UnoPdf
+    Sources:
+       - NgsReviewerApp
+       - UnoPdf
+       
+NgsReviewerApp:
+  environment: "production"
+  github: "https://github.com/pdxmolab/NgsReporter.git"
+  http: "http://170.220.59.150:8345"
+  https: "https://ngsreviewer.mgl.providence.org"

@@ -1,7 +1,5 @@
-
 <div class="table-style">
   <table class="table table-hover">
-
     <tr>
       <th align="left">System</th>
       <th align="left">Address</th>
@@ -11,7 +9,7 @@
   <% nodes.each do |target| %>
 
   <tr>
-    <td><%= target.name %></td>
+    <td><%= link_to target.name, edit_system_node_path(target) %></td>
     <td><%= target.address %></td>
     <td><%= target.description %></td>
   </tr>
