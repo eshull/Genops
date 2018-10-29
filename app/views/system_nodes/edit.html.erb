@@ -1,58 +1,60 @@
 <%
   nodes = local_assigns[:nodes]
 %>
-
 <div class="jumbotron">
   <h1 class="display-4">Editing <%= @system_node.name %> System Node</h1>
   <p class="lead">Edit the <%= @system_node.name %> System Node.</p>
   <hr class="my-4">
-  <p>Find all the connecting nodes to <%= @system_node.name %>.</p>
-  <p class="lead">
-    <div class="btn btn-info">
+  <div class="jumbotron-graph">
+    View all the connecting nodes to <%= @system_node.name %>: <div class="btn btn-info">
       <%= link_to 'Graphs!', 'graph', :class => 'btn', description: 'Graph Time' %>
     </div>
-  </p>
+  </div>
+
+
 </div>
-
-<%= render 'form', system_node: @system_node %>
-
-
 <div class="col-md-12">
+  <div class="system-node-form">
+    <h1>Update <%= @system_node.name %> System</h1>
+    <%= render 'form', system_node: @system_node %>
+  </div>
   <%= link_to 'Show', @system_node %> |
   <%= link_to 'Back', system_nodes_path %> |
   <%= link_to 'New Setting for Node', new_system_node_setting_path(@system_node) %>
-  <h1>System Node Connections for <%= @system_node.name %> </h1>
+
 </div>
 
 
+<div class="sources-targets col-md-12">
+    <h1>Add a Connection for <%= @system_node.name %> </h1>
+    <div class="sources-list col-md-6">
+      <h2>Sources</h2>
+      <%= render 'neighbor_list', nodes: @system_node.sources.to_a %>
 
-<div class="targets-list col-md-6">
-  <h2>Targets</h2>
-  <%= render 'neighbor_list', nodes: @system_node.targets.to_a %>
+        <div class="form-group">
+          <%= form_tag("/system_nodes/#{@system_node.id}/sources", method: "post") do %>
+            <select class="form-control" id="source_node_id" name="source_node_id">
+            <%= options_for_select(SystemNode.all.map { |n| [n.name, n.id] }) %>
+            </select>
+            <button class=" btn btn-info"> <%= submit_tag("Add Source") %> </button>
+          <% end %>
+        </div>
+    </div>
+    <div class="targets-list col-md-6">
+      <h2>Targets</h2>
+      <%= render 'neighbor_list', nodes: @system_node.targets.to_a %>
 
-    <div class="form-group">
-      <%= form_tag("/system_nodes/#{@system_node.id}/targets", method: "post") do %>
-        <select class="form-control" id="target_node_id" name="target_node_id">
-        <%= options_for_select(SystemNode.all.map { |n| [n.name, n.id] }) %>
-        </select>
-        <%= submit_tag("Add Target") %>
-      <% end %>
+        <div class="form-group">
+          <%= form_tag("/system_nodes/#{@system_node.id}/targets", method: "post") do %>
+            <select class="form-control" id="target_node_id" name="target_node_id">
+            <%= options_for_select(SystemNode.all.map { |n| [n.name, n.id] }) %>
+            </select>
+            <button class=" btn btn-info"> <%= submit_tag("Add Target") %>
+          <% end %>
+        </div>
     </div>
 </div>
 
-<div class="sources-list col-md-6">
-  <h2>Sources</h2>
-  <%= render 'neighbor_list', nodes: @system_node.sources.to_a %>
-
-    <div class="form-group">
-      <%= form_tag("/system_nodes/#{@system_node.id}/sources", method: "post") do %>
-        <select class="form-control" id="source_node_id" name="source_node_id">
-        <%= options_for_select(SystemNode.all.map { |n| [n.name, n.id] }) %>
-        </select>
-        <%= submit_tag("Add Source") %>
-      <% end %>
-    </div>
-</div>
 
 
 <% #= link_to 'Edit System Connection', system_links_path(@system_node) %>
