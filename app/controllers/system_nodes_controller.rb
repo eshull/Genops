@@ -63,7 +63,7 @@ class SystemNodesController < ApplicationController
 
     respond_to do |format|
       if @system_node.save
-        format.html { redirect_to @system_node, notice: 'System node was successfully created.' }
+        format.html { redirect_to edit_system_node_path(@system_node), notice: 'System node was successfully created.' }
         format.json { render :show, status: :created, location: @system_node }
       else
         format.html { render :new }
@@ -77,7 +77,7 @@ class SystemNodesController < ApplicationController
   def update
     respond_to do |format|
       if @system_node.update(system_node_params)
-        format.html { redirect_to @system_node, notice: 'System node was successfully updated.' }
+        format.html { redirect_to edit_system_node_path(@system_node), notice: 'System node was successfully updated.' }
         format.json { render :show, status: :ok, location: @system_node }
       else
         format.html { render :edit }
