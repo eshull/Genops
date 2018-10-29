@@ -18,9 +18,8 @@
     <h1>Update <%= @system_node.name %> System</h1>
     <%= render 'form', system_node: @system_node %>
   </div>
-  <%= link_to 'Show', @system_node %> |
-  <%= link_to 'Back', system_nodes_path %> |
-  <%= link_to 'New Setting for Node', new_system_node_setting_path(@system_node) %>
+  <button class=" btn btn-info"> <%= link_to 'New Setting for Node', new_system_node_setting_path(@system_node) %> </button>
+
 
 </div>
 
@@ -49,7 +48,7 @@
             <select class="form-control" id="target_node_id" name="target_node_id">
             <%= options_for_select(SystemNode.all.map { |n| [n.name, n.id] }) %>
             </select>
-            <button class=" btn btn-info"> <%= submit_tag("Add Target") %>
+            <button class=" btn btn-info"> <%= submit_tag("Add Target") %></button>
           <% end %>
         </div>
     </div>
