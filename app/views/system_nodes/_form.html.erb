@@ -1,5 +1,5 @@
 
-<div class="col-md-10">
+<div class="">
   <%= simple_form_for @system_node do |form| %>
     <% if system_node.errors.any? %>
       <div id="error_explanation">
@@ -15,22 +15,28 @@
 
     <% default_fields = [:name, :address, :description] %>
 
-    <table>
+    <table class="table">
 
       <% default_fields.each do |f| %>
         <tr>
           <td><%= form.label f, class: 'control-label' %></td>
           <td>  <%= form.text_field f, class: 'form-control' %></tr>
       <% end %>
+      <tr>
+        <td><div >
+          <button class=" btn btn-info"> <%= form.submit %> </button>
+        </div></td>
 
-      <% @system_node.settings.each do |s| %>
-        <tr><td><%= s.key %></td><td><%= s.value %></td><td><%= link_to "Edit", edit_system_node_setting_path(@system_node, s) %> <%= link_to 'Destroy', system_node_setting_path(@system_node,s), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+      </tr>
+      <div class="node-settings">
+        <th>Settings for <%= @system_node.name %> </th>
+        <% @system_node.settings.each do |s| %>
+          <tr><td><%= s.key %></td><td><%= s.value %></td><td><%= link_to "Edit", edit_system_node_setting_path(@system_node, s) %> <%= link_to 'Destroy', system_node_setting_path(@system_node,s), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </div>
 
-      <% end %>
     </table>
-    <div class="actions">
-      <%= form.submit %>
-    </div>
+
   <% end %>
 </div>
