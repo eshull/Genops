@@ -8,6 +8,10 @@ Rails.application.routes.draw do
     resources :settings
   end
 
+  resources :system_links do
+
+  end
+
   post '/system_nodes/:id/targets', to: 'system_nodes#add_target'
 
   post '/system_nodes/:id/sources', to: 'system_nodes#add_source'

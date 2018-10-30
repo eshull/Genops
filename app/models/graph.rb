@@ -13,7 +13,7 @@ class Graph
   def add_node(node, layers_of_sources = 1, layers_of_targets = 1)
 
     if layers_of_sources > 0
-      self.add_edges(node.to_node_links)
+      self.add_edges(node.source_links)
       if layers_of_sources > 1
         node.sources.each do |s|
           self.add_node(s, layers_of_sources = layers_of_sources-1, layers_of_targets = 1)
@@ -22,7 +22,7 @@ class Graph
     end
 
     if layers_of_targets > 0
-      self.add_edges(node.from_node_links)
+      self.add_edges(node.target_links)
 
       if layers_of_targets > 1
         node.targets.each do |s|

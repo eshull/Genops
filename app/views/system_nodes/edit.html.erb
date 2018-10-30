@@ -25,7 +25,7 @@
       <h1>Add a Connection for <%= @system_node.name %> </h1>
       <div class="sources-list col-md-6">
         <h2>Sources</h2>
-        <%= render 'neighbor_list', nodes: @system_node.sources.to_a %>
+        <%= render 'source_links_list', links: @system_node.source_links.to_a %>
 
           <div class="form-group">
             <%= form_tag("/system_nodes/#{@system_node.id}/sources", method: "post") do %>
@@ -38,8 +38,7 @@
       </div>
       <div class="targets-list col-md-6">
         <h2>Targets</h2>
-        <%= render 'neighbor_list', nodes: @system_node.targets.to_a %>
-
+        <%= render 'target_links_list', links: @system_node.target_links.to_a %>
           <div class="form-group">
             <%= form_tag("/system_nodes/#{@system_node.id}/targets", method: "post") do %>
               <select class="form-control" id="target_node_id" name="target_node_id">

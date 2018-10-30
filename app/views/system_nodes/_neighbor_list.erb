@@ -7,11 +7,11 @@
     </tr>
     <% if nodes %>
   <% nodes.each do |target| %>
-
   <tr>
     <td><%= link_to target.name, edit_system_node_path(target) %></td>
     <td><%= target.address %></td>
     <td><%= target.description %></td>
+      <td><%= link_to 'Destroy', target, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
   <% end %>
   <% else %>
