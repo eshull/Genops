@@ -33,6 +33,15 @@ footer {
   color: white;
 }
 
+button a {
+  color: white;
+}
+
+button a:hover {
+  color: white;
+  text-decoration: none;
+}
+
 .navbar a:hover {
   color: darkgrey;
 }
@@ -45,6 +54,7 @@ input[type="submit"] {
 .btn-info {
   margin-top: 15px;
   margin-bottom: 20px;
+  color: white;
 }
 
 table>tbody>tr:last-child {
