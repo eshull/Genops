@@ -67,7 +67,20 @@ table>tbody>tr:last-child {
 }
 
 .col-md-12 {
-  margin-bottom: 50px;
+  padding: 10px;
+}
+
+.page {
+  margin-bottom: 20px;
   box-shadow: 5px 10px 40px #888888;
-  padding: 30px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.break {
+  background-color: #192b47;
+  height: 1px;
+  width: 90%;
+  align-self: center;
 }
