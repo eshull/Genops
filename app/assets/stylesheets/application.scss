@@ -21,10 +21,48 @@
   background-color: #192b47;
 }
 
+footer {
+  color: white;
+  background-color: #192b47;
+  height: 150px;
+  padding: 30px;
+  margin-top: 40px;
+}
+
 .navbar a {
   color: white;
 }
 
+button a {
+  color: white;
+}
+
+button a:hover {
+  color: white;
+  text-decoration: none;
+}
+
 .navbar a:hover {
   color: darkgrey;
+}
+
+input[type="submit"] {
+  background-color: inherit;
+  border: none;
+}
+
+.btn-info {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+table>tbody>tr:last-child {
+  border-bottom: 1px solid #ddd;
+}
+
+.col-md-12 {
+  margin-bottom: 50px;
+  box-shadow: 5px 10px 40px #888888;
+  padding: 30px;
 }
