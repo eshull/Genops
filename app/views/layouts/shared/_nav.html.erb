@@ -2,13 +2,14 @@
 <nav class="navbar navbar-dark bg-dark">
 
   <span class="navbar-text">
-    <a>GENOPS</a>
+    <a><%= link_to "GENOPS", system_nodes_path %></a>
   </span>
   <span class="navbar-text">
     <a><%= link_to "Home", system_nodes_path %></a>
   </span>
   <span class="navbar-text">
-    <a><%= link_to "Systems", system_nodes_path %></a>
+    <a><%= link_to "Systems", system_nodes_path( whatever:"hello", type:"pipelines")%></a>
+    <a href="/system_nodes">Systems</a>
   </span>
   <span class="navbar-text">
     <a><%= link_to "Create System", new_system_node_path %></a>

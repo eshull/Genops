@@ -29,6 +29,11 @@ footer {
   margin-top: 40px;
 }
 
+a:hover {
+  text-decoration: none;
+  color: #93b1e2;
+}
+
 .navbar a {
   color: white;
 }
@@ -43,7 +48,7 @@ button a:hover {
 }
 
 .navbar a:hover {
-  color: darkgrey;
+  color: #93b1e2;
 }
 
 input[type="submit"] {

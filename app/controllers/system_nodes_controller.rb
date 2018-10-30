@@ -54,6 +54,8 @@ class SystemNodesController < ApplicationController
   # GET /system_nodes/1/edit
   def edit
     @system_node = SystemNode.find(params[:id])
+    # @target = SystemLink.find(params[:to_node_id])
+    # @source = SystemLink.find(params[:from_node_id])
   end
 
   # POST /system_nodes
@@ -109,6 +111,11 @@ class SystemNodesController < ApplicationController
   end
 
   def graph_viz
+    @system_node = SystemNode.find(params[:id])
+    @system_nodes = SystemNode.all
+  end
+
+  def d3
     @system_node = SystemNode.find(params[:id])
     @system_nodes = SystemNode.all
   end

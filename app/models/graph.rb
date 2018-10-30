@@ -42,7 +42,7 @@ class Graph
   end
 
   def to_dot
-    nodes_list = @nodes.map {|id,node| "node_#{id} [label=#{node.node_label(self.attrs_to_show)}] [URL=\"http://localhost:3001/system_nodes/#{id}/graph\"] " }
+    nodes_list = @nodes.map {|id,node| "node_#{id} [label=#{node.node_label(self.attrs_to_show)}] [zURL=\"http://localhost:3000/system_nodes/#{id}/edit\"] " }
 
     edges_list = @links.map { |id,l| "node_#{l.from_node_id} -> node_#{l.to_node_id}" }
 

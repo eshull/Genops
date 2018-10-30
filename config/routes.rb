@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   post '/system_nodes/:id/sources', to: 'system_nodes#add_source'
 
   get '/system_nodes/:id/graph', to: 'system_nodes#graph_viz'
+  get '/system_nodes/:id/d3', to: 'system_nodes#d3'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

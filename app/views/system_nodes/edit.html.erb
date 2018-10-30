@@ -2,11 +2,11 @@
   nodes = local_assigns[:nodes]
 %>
 <div class="jumbotron">
-  <h1 class="display-4">Editing <%= @system_node.name %> System Node</h1>
+  <h1 class="display-4">Edit <%= @system_node.name %></h1>
   <p class="lead">Edit the <%= @system_node.name %> System Node.</p>
   <hr class="my-4">
   <div class="jumbotron-graph">
-    View all the connecting nodes to <%= @system_node.name %>: <div class="btn btn-info">
+    <h4>View all the connecting nodes to <%= @system_node.name %>: </h4><div class="btn btn-info">
       <%= link_to 'Graphs!', 'graph', :class => 'btn', description: 'Graph Time' %>
     </div>
   </div>
@@ -15,7 +15,7 @@
 </div>
 <div class="col-md-12">
   <div class="system-node-form">
-    <h1>Update <%= @system_node.name %> System</h1>
+    <h1>Update <%= @system_node.name %></h1>
     <%= render 'form', system_node: @system_node %>
   </div>
   <button class=" btn btn-info"> <%= link_to 'New Setting for Node', new_system_node_setting_path(@system_node) %> </button>
