@@ -8,3 +8,26 @@
 .table-style {
 
 }
+
+
+// bar chart css
+.axis path, .axis line
+       {
+           fill: none;
+           stroke: #777;
+           shape-rendering: crispEdges;
+       }
+
+       .axis text
+       {
+           font-family: 'Arial';
+           font-size: 13px;
+       }
+       .tick
+       {
+           stroke-dasharray: 1, 2;
+       }
+       .bar
+       {
+           fill: FireBrick;
+       }

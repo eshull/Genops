@@ -1,15 +1,15 @@
 class SystemNode < ApplicationRecord
   has_many :settings
 
-  has_many :from_node_links, :foreign_key => :from_node_id,
+  has_many :target_links, :foreign_key => :from_node_id,
           :class_name => 'SystemLink'
-  has_many :targets, :through => :from_node_links,
-          :source => :to_node
+  has_many :targets, :through => :target_links,
+          :source => :to_node, dependent: :destroy
 
-  has_many :to_node_links, :foreign_key => :to_node_id,
+  has_many :source_links, :foreign_key => :to_node_id,
            :class_name => 'SystemLink'
-  has_many :sources, :through => :to_node_links,
-           :source => :from_node
+  has_many :sources, :through => :source_links,
+           :source => :from_node, dependent: :destroy
 
   def get_setting(key)
     for setting in self.settings
@@ -129,5 +129,9 @@ class SystemNode < ApplicationRecord
 
     <% end %>'
 
+  end
+
+  def query_by_type(type_name)
+    SystemNode.joins(:settings).where("settings.key='type:#{type_name}'")
   end
 end

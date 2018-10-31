@@ -67,16 +67,31 @@ class SystemLinksController < ApplicationController
   # DELETE /system_links/1
   # DELETE /system_links/1.json
   def destroy
-    @system_link.destroy
-    respond_to do |format|
-      format.html { redirect_to system_links_url, notice: 'System link was successfully destroyed.' }
-      format.json { head :no_content }
+    binding.pry
+    # @system_node = SystemNode.find(set_system_link)
+    # @target = SystemLink.find(set_system_link)
+    # @source = SystemLink.find(set_system_link)
+    # @system_node.to_node_id.destroy
+    @system_link = SystemLink.find(params[:id])
+
+    if @system_link.destroy
+      respond_to do |format|
+        format.html { redirect_to edit_system_node_path, notice: 'System link was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to edit_system_node_path, notice: 'Error while destroying' }
+        format.json { head :no_content }
+      end
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_system_link
+      # binding.pry
+      # @system_node = SystemNode.find(params[:system_node_id])
       @system_link = SystemLink.find(params[:id])
     end
 

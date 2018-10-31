@@ -1,0 +1,30 @@
+<div class="table-style">
+  <table class="table table-hover">
+    <tr>
+      <th align="left">System</th>
+      <th align="left">Address</th>
+      <th align="left">Description</th>
+    </tr>
+    <% if links %>
+    <% puts links %>
+  <% links.each do |link| %>
+  <% node = link.from_node %>
+  <% if node %>
+  <tr>
+    <% puts links %>
+    <% puts link.from_node_id %>
+
+    <td><%= link_to node.name, edit_system_node_path(node) %></td>
+    <td><%= node.address %></td>
+    <td><%= node.description %></td>
+      <td>
+        <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/system_links/<%=link.id %>">Destroy</a>
+      </td>
+  </tr>
+  <% end %>
+  <% end %>
+  <% else %>
+  <tr><td>None</td><tr>
+  <% end %>
+</table>
+</div>

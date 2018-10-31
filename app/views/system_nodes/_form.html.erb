@@ -4,7 +4,6 @@
     <% if system_node.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(system_node.errors.count, "error") %> prohibited this system_node from being saved:</h2>
-
         <ul>
         <% system_node.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -12,31 +11,16 @@
         </ul>
       </div>
     <% end %>
-
+    
     <% default_fields = [:name, :address, :description] %>
 
     <table class="table">
-
       <% default_fields.each do |f| %>
         <tr>
           <td><%= form.label f, class: 'control-label' %></td>
           <td>  <%= form.text_field f, class: 'form-control' %></tr>
       <% end %>
-      <tr>
-        <td><div >
-          <button class=" btn btn-info"> <%= form.submit %> </button>
-        </div></td>
-
-      </tr>
-      <div class="node-settings">
-        <th>Settings for <%= @system_node.name %> </th>
-        <% @system_node.settings.each do |s| %>
-          <tr><td><%= s.key %></td><td><%= s.value %></td><td><%= link_to "Edit", edit_system_node_setting_path(@system_node, s) %> <%= link_to 'Destroy', system_node_setting_path(@system_node,s), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-        <% end %>
-      </div>
-
     </table>
-
+    <button class=" btn btn-info"> <%= form.submit %> </button>
   <% end %>
 </div>

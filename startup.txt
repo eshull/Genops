@@ -1,0 +1,11 @@
+rails new genops
+
+rails db:create
+
+rails g scaffold systemNode
+
+// fill out migration and migrate //
+
+rails db:migrate
+
+rails g scaffold systemLink

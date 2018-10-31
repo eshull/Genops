@@ -1,0 +1,9 @@
+<table class="table">
+  <div class="node-settings">
+    <th>Settings for <%= @system_node.name %> </th>
+    <% @system_node.settings.each do |s| %>
+      <tr><td><%= s.key %></td><td><%= s.value %></td><td><%= link_to "Edit", edit_system_node_setting_path(@system_node, s) %> <%= link_to 'Destroy', system_node_setting_path(@system_node,s), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </div>
+</table>

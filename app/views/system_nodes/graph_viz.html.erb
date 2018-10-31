@@ -1,5 +1,5 @@
-<%= @system_node.hello %>
-<%= @system_node.dot %>
+<h1>Graph for <%= @system_node.name %></h1> 
+
 <div id="graph" style="text-align: center;"></div>
 <script>
 console.log('<%= @system_node.hello %>');
@@ -63,7 +63,7 @@ function render(dotSrc) {
 
             var routeId = dotElement.replace('node_','');
 
-  
+
             console.log(dotElement);
             console.log("route id" + routeId);
 
