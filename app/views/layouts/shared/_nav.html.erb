@@ -5,13 +5,19 @@
     <a><%= link_to "GENOPS", system_nodes_path %></a>
   </span>
   <span class="navbar-text">
-    <a><%= link_to "Systems", system_nodes_path(type:"systems")%></a>
+    <a><%= link_to "Show All Systems", system_nodes_path %></a>
   </span>
   <span class="navbar-text">
-    <a><%= link_to "Cases", system_nodes_path(type:"cases")%></a>
+    <a><%= link_to "Systems", system_nodes_path(type:"system")%></a>
   </span>
   <span class="navbar-text">
-    <a><%= link_to "Pipelines", system_nodes_path(type:"pipelines")%></a>
+    <a><%= link_to "Cases", system_nodes_path(type:"case")%></a>
+  </span>
+  <span class="navbar-text">
+    <a><%= link_to "Pipelines", system_nodes_path(type:"pipeline")%></a>
+  </span>
+  <span class="navbar-text">
+    <a><%= link_to "Workflows", system_nodes_path(type:"workflow")%></a>
   </span>
   <span class="navbar-text">
     <a><%= link_to "Create System", new_system_node_path %></a>
