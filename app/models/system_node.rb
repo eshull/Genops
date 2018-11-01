@@ -147,11 +147,10 @@ class SystemNode < ApplicationRecord
     nodes.each { |k, v| puts "The hash key is #{k} and the value is #{v}."}
     nodes.each do |nodekey, nodevalue|
       puts "The hash key is #{nodekey} and the value is #{nodevalue}."
-      puts nodevalue.class
+      SystemNode.find_or_create_by(name: nodekey.to_s)
       if !nodevalue.has_key?('targets')
         nodevalue.each do |settingkey, settingvalue|
           puts "The setting key is #{settingkey} and the setting value is #{settingvalue}."
-        # Setting.create(key: nodekey, value: nodevalue)
         end
       end
     end
