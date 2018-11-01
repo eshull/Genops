@@ -148,9 +148,12 @@ class SystemNode < ApplicationRecord
     nodes.each do |nodekey, nodevalue|
       puts "The hash key is #{nodekey} and the value is #{nodevalue}."
       SystemNode.find_or_create_by(name: nodekey.to_s)
-      if !nodevalue.has_key?('targets')
-        nodevalue.each do |settingkey, settingvalue|
-          puts "The setting key is #{settingkey} and the setting value is #{settingvalue}."
+
+      nodevalue.each do |settingkey, settingvalue|
+        if settingkey != 'targets'
+          node = SystemNode.find_or_create_by(name: nodekey.to_s)
+          node.settings.create(key: settingkey, value: settingvalue)
+          puts "The setting key for #{nodekey} is #{settingkey} and the setting value is #{settingvalue}."
         end
       end
     end
