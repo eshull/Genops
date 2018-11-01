@@ -135,7 +135,25 @@ class SystemNode < ApplicationRecord
     SystemNode.joins(:settings).where("settings.key='type:#{type_name}'")
   end
 
-  def self.yaml_to_seed(yaml_path)
-    nodes = yaml_path["nodes"]
+  def self.import_yaml(yaml_path)
+
+    data = YAML.load_file(yaml_path)
+
+    nodes = data["nodes"]
+
+    puts "File has #{nodes.count} nodes"
+
+    # nodes.each { |k, v| puts "Node name: ${k}\n\t properties: #{v}" }
+    nodes.each { |k, v| puts "The hash key is #{k} and the value is #{v}."}
+    nodes.each do |nodekey, nodevalue|
+      puts "The hash key is #{nodekey} and the value is #{nodevalue}."
+      puts nodevalue.class
+      if !nodevalue.has_key?('targets')
+        nodevalue.each do |settingkey, settingvalue|
+          puts "The setting key is #{settingkey} and the setting value is #{settingvalue}."
+        # Setting.create(key: nodekey, value: nodevalue)
+        end
+      end
+    end
   end
 end
