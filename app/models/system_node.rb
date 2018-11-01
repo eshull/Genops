@@ -131,7 +131,7 @@ class SystemNode < ApplicationRecord
 
   end
 
-  def query_by_type(type_name)
+  def self.query_by_type(type_name)
     SystemNode.joins(:settings).where("settings.key='type:#{type_name}'")
   end
 
@@ -147,13 +147,49 @@ class SystemNode < ApplicationRecord
     nodes.each { |k, v| puts "The hash key is #{k} and the value is #{v}."}
     nodes.each do |nodekey, nodevalue|
       puts "The hash key is #{nodekey} and the value is #{nodevalue}."
-      SystemNode.find_or_create_by(name: nodekey.to_s)
+      node = SystemNode.find_or_create_by(name: nodekey.to_s)
 
       nodevalue.each do |settingkey, settingvalue|
-        if settingkey != 'targets'
-          node = SystemNode.find_or_create_by(name: nodekey.to_s)
-          node.settings.find_or_create_by(key: settingkey, value: settingvalue)
+        if settingkey != 'targets' && settingkey != "sources"
+          #node = SystemNode.find_or_create_by(name: nodekey.to_s)
+          setting = node.settings.find_or_create_by(key: settingkey)
+          if setting.value && setting.value != settingvalue
+            puts "Changing node #{node.id} #{settingkey} from #{setting.value} to #{settingvalue}"
+          end
+          if setting.value != settingvalue
+            setting.value = settingvalue
+            setting.save!
+          end
           puts "The setting key for #{nodekey} is #{settingkey} and the setting value is #{settingvalue}."
+        else
+          #dealing with targets
+          if settingvalue.class == Array
+            #at this point settingvalue is the array of Hashes of target node
+            settingvalue.each do |linked_node_hash|
+              #given our convention in the yaml file,
+              #each key of linked_node_hash will be a node name
+              #of the target, and the value of the hash will be a hash of any
+              # key value pairs listed under the target node name in the yaml
+              puts "unexpected format" if linked_node_hash.count>1
+
+              linked_node_name = linked_node_hash.keys[0]
+
+              linked_node = SystemNode.find_or_create_by(name: linked_node_name)
+
+              if settingkey == "targets"
+                link_types = node.target_links
+                from_node_id = node.id
+                to_node_id = linked_node.id
+              else
+                link_types = node.source_links
+                from_node_id = linked_node.id
+                to_node_id = node.id
+              end
+              link_types.find_or_create_by(from_node_id: from_node_id, to_node_id: to_node_id)
+            end
+          else
+            puts "warning, targets for #{node.name} was not an array, skipping"
+          end
         end
       end
     end

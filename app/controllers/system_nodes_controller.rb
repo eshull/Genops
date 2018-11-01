@@ -38,7 +38,11 @@ class SystemNodesController < ApplicationController
   # GET /system_nodes
   # GET /system_nodes.json
   def index
-    @system_nodes = SystemNode.all
+    if params["type"]
+      @system_nodes = SystemNode.query_by_type(params["type"])
+    else
+      @system_nodes = SystemNode.all
+    end
   end
 
   # GET /system_nodes/1
