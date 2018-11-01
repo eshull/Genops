@@ -8,11 +8,28 @@ nodes:
       - NgsReviewerApp:
         - somelinkproperty: "perhaps a website"
       - UnoPdf
-    
+
   NgsReviewerApp:
     environment: "production"
     github: "https://github.com/pdxmolab/NgsReporter.git"
     http: "http://170.220.59.150:8345"
     https: "https://ngsreviewer.mgl.providence.org"
 
-  
+
+  NgsReviewerApp:
+    environment: "production"
+    github: "https://github.com/pdxmolab/NgsReporter.git"
+    http: "http://170.220.59.150:8345"
+    https: "https://ngsreviewer.mgl.providence.org"
+
+  NgsReviewerApp:
+    environment: "production"
+    github: "https://github.com/pdxmolab/NgsReporter.git"
+    http: "http://170.220.59.150:8345"
+    https: "https://ngsreviewer.mgl.providence.org"
+
+  SeedFileTest:
+    environment: "production"
+    github: "https://github.com/pdxmolab/NgsReporter.git"
+    http: "http://170.220.59.150:8345"
+    https: "https://ngsreviewer.mgl.providence.org"

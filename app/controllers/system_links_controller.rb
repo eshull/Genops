@@ -72,11 +72,13 @@ class SystemLinksController < ApplicationController
     # @target = SystemLink.find(set_system_link)
     # @source = SystemLink.find(set_system_link)
     # @system_node.to_node_id.destroy
+    # @system_node = SystemNode.find(params[:id])
+    # SystemNode.joins(:system_links).where(system_link: { id: @system })
     @system_link = SystemLink.find(params[:id])
 
     if @system_link.destroy
       respond_to do |format|
-        format.html { redirect_to edit_system_node_path, notice: 'System link was successfully destroyed.' }
+        format.html { redirect_to system_nodes_path, notice: 'System link was successfully destroyed.' }
         format.json { head :no_content }
       end
     else
