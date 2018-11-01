@@ -152,7 +152,7 @@ class SystemNode < ApplicationRecord
       nodevalue.each do |settingkey, settingvalue|
         if settingkey != 'targets'
           node = SystemNode.find_or_create_by(name: nodekey.to_s)
-          node.settings.create(key: settingkey, value: settingvalue)
+          node.settings.find_or_create_by(key: settingkey, value: settingvalue)
           puts "The setting key for #{nodekey} is #{settingkey} and the setting value is #{settingvalue}."
         end
       end
