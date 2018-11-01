@@ -9,7 +9,7 @@ require "yaml"
 
 data = YAML.load_file("reporter.yml")
 
-nodes = data["nodes"]
+nodes = SystemNode.yaml_to_seed(data)
 
 SystemNode.destroy_all
 Setting.destroy_all

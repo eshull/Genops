@@ -134,4 +134,8 @@ class SystemNode < ApplicationRecord
   def query_by_type(type_name)
     SystemNode.joins(:settings).where("settings.key='type:#{type_name}'")
   end
+
+  def self.yaml_to_seed(yaml_path)
+    nodes = yaml_path["nodes"]
+  end
 end
