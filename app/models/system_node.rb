@@ -134,4 +134,28 @@ class SystemNode < ApplicationRecord
   def query_by_type(type_name)
     SystemNode.joins(:settings).where("settings.key='type:#{type_name}'")
   end
+
+  def self.import_yaml(yaml_path)
+
+    data = YAML.load_file(yaml_path)
+
+    nodes = data["nodes"]
+
+    puts "File has #{nodes.count} nodes"
+
+    # nodes.each { |k, v| puts "Node name: ${k}\n\t properties: #{v}" }
+    nodes.each { |k, v| puts "The hash key is #{k} and the value is #{v}."}
+    nodes.each do |nodekey, nodevalue|
+      puts "The hash key is #{nodekey} and the value is #{nodevalue}."
+      SystemNode.find_or_create_by(name: nodekey.to_s)
+
+      nodevalue.each do |settingkey, settingvalue|
+        if settingkey != 'targets'
+          node = SystemNode.find_or_create_by(name: nodekey.to_s)
+          node.settings.find_or_create_by(key: settingkey, value: settingvalue)
+          puts "The setting key for #{nodekey} is #{settingkey} and the setting value is #{settingvalue}."
+        end
+      end
+    end
+  end
 end
