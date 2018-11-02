@@ -67,7 +67,6 @@ class SystemLinksController < ApplicationController
   # DELETE /system_links/1
   # DELETE /system_links/1.json
   def destroy
-    binding.pry
     # @system_node = SystemNode.find(set_system_link)
     # @target = SystemLink.find(set_system_link)
     # @source = SystemLink.find(set_system_link)
