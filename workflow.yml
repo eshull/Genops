@@ -1,0 +1,47 @@
+nodes:
+  OrderingProviderLogsIntoPortal:
+    "type:workflow": "1"
+    targets:
+      - OrderIsPlacedInPortal:
+
+  OrderIsPlacedInPortal:
+    "type:workflow": "1"
+    targets:
+      - OrderGoesIntoPendingQueue:
+    sources:
+      - OrderingProviderLogsIntoPortal:
+
+  OrderGoesIntoPendingQueue:
+    "type:workflow": "1"
+    targets:
+      - GenomicsTeamPullsPendingOrderQueueFromPortal:
+    sources:
+      - OrderIsPlacedInPortal:
+
+  GenomicsTeamPullsPendingOrderQueueFromPortal:
+    "type:workflow": "1"
+    targets:
+      - OrderIsManuallyEnteredInCerner:
+    sources:
+      - OrderGoesIntoPendingQueue:
+
+  OrderIsManuallyEnteredInCerner:
+    "type:workflow": "1"
+    targets:
+      - IdentifyLocationOfPathologySampleFromPortal:
+    sources:
+      - GenomicsTeamPullsPendingOrderQueueFromPortal:
+
+  IdentifyLocationOfPathologySampleFromPortal:
+    "type:workflow": "1"
+    targets:
+      - DownloadPdfOrderFromPortalAndFaxToPathologyLabToRequestSample:
+    sources:
+      - OrderIsManuallyEnteredInCerner:
+
+  DownloadPdfOrderFromPortalAndFaxToPathologyLabToRequestSample:
+    "type:workflow": "1"
+    targets:
+      - SampleReceived:
+    sources:
+      - IdentifyLocationOfPathologySampleFromPortal:

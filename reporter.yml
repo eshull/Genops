@@ -5,9 +5,13 @@ nodes:
     http: "http://170.220.59.152:8345"
     https: "https://ngsreporter.mgl.providence.org"
     targets:
-      - SeedFileTest: value
-      - NgsReviewerApp: value
-      - UnoPdf: value
+      - SeedFileTest:
+      - NgsReviewerApp:
+      - UnoPdf:
+      - NeverBeforeExisted:
+    sources:
+      - MysteriousParent:
+      - MagicImportTest:
 
   NgsReviewerApp:
     environment: "production"
@@ -20,6 +24,14 @@ nodes:
     github: "https://github.com/pdxmolab/NgsReporter.git"
     http: "http://170.220.59.150:8345"
     https: "https://ngsreviewer.mgl.providence.org"
+
+  MagicImportTest:
+    stupidkeyname: "stupidvalue"
+    amiaparent: "yesiamnow"
+
+  PipelineOne:
+    "type:pipeline": "1"
+    
 
 # nodes=>{
       # "NgsReporterApp"=>{
