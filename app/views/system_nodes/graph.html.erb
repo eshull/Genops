@@ -29,6 +29,8 @@ function handleNodeClick() {
     var label1 = $('<h2/>');
     var label2 = $('<h3/>');
     var label3 = $('<h5/>');
+    var editLink = $('<%= link_to graph_system_node_path(@system_node) %>');
+    var editLink = $('<a href="/system_nodes/' + routeId + '/edit">edit</a>');
     console.log(data.settings);
 
     // data = {name: "adfadf", updated_at:"adfadfa" ,
@@ -40,6 +42,7 @@ function handleNodeClick() {
     label1.appendTo(content);
     label2.appendTo(content);
     label3.appendTo(content);
+    editLink.appendTo(content);
 
     for (var key in data.settings) {
       // skip loop if the property is from prototype
@@ -49,7 +52,7 @@ function handleNodeClick() {
           // skip loop if the property is from prototype
           if(!obj.hasOwnProperty(prop)) continue;
             if(prop.toString() == "key" || prop.toString() == "value"){
-            label3.append("Setting: " + prop + " : " + obj[prop] + '<br>')
+            label3.append(prop + " : " + obj[prop] + '<br>')
             label3.appendTo(content)
             }else {
               console.log("wrong prop");
