@@ -60,6 +60,42 @@ function handleNodeClick() {
             }
       }
   }
+  // table view
+  var content = $('<div/>');
+  var label1 = $('<h2/>');
+  var label2 = $('<h3/>');
+  var label3 = $('<h5/>');
+  var graphLink = $('<a href="/system_nodes/' + routeId + '/graph">graph</a>');
+  var editLink = $('<a href="/system_nodes/' + routeId + '/edit">edit</a>');
+  console.log(data.settings);
+
+  // data = {name: "adfadf", updated_at:"adfadfa" ,
+  // settings: {"mysettingnamex":"davalueofx"},
+  // stats:{"mycount1":2, "someothercount":4}};
+  label1.append(data.name)
+  label2.append(data.id)
+  label3.append(data.settings)
+  label1.appendTo(content);
+  label2.appendTo(content);
+  label3.appendTo(content);
+  graphLink.appendTo(content);
+  editLink.appendTo(content);
+    for (var key in data.settings) {
+      // skip loop if the property is from prototype
+      if (!data.settings.hasOwnProperty(key)) continue;
+      var obj = data.settings[key];
+      for (var prop in obj) {
+          // skip loop if the property is from prototype
+          if(!obj.hasOwnProperty(prop)) continue;
+            if(prop.toString() == "key" || prop.toString() == "value"){
+            label3.append(prop + " : " + obj[prop] + '<br>')
+            label3.appendTo(content)
+            }else {
+              console.log("wrong prop");
+              console.log(prop.toString());
+            }
+      }
+  }
     //what kind of structure do we expect?
 
     /*
@@ -70,8 +106,8 @@ function handleNodeClick() {
     */
 
     var statusTable = $('<table/>');
-    for (var statname in data.settings) {
-      var row = `<tr><td>${statname}</td><td>${data.settings[statname]}</td><tr/>`
+    for (var statname in data.stats) {
+      var row = `<tr><td>${statname}</td><td>${data.stats[statname]}</td><tr/>`
       row = $(row);
       statusTable.append(row)
     }
