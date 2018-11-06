@@ -28,7 +28,7 @@ function handleNodeClick() {
     var content = $('<div/>');
     var label1 = $('<h2/>');
     var label2 = $('<h3/>');
-    var label3 = $('<p/>');
+    var label3 = $('<h5/>');
     console.log(data.settings);
 
     // data = {name: "adfadf", updated_at:"adfadfa" ,
@@ -44,15 +44,17 @@ function handleNodeClick() {
     for (var key in data.settings) {
       // skip loop if the property is from prototype
       if (!data.settings.hasOwnProperty(key)) continue;
-
       var obj = data.settings[key];
       for (var prop in obj) {
           // skip loop if the property is from prototype
           if(!obj.hasOwnProperty(prop)) continue;
-          label3.append("Setting: " + prop + " = " + obj[prop] + '<br>')
-          label3.appendTo(content)
-          // your code
-          // alert(prop + " = " + obj[prop]);
+            if(prop.toString() == "key" || prop.toString() == "value"){
+            label3.append("Setting: " + prop + " : " + obj[prop] + '<br>')
+            label3.appendTo(content)
+            }else {
+              console.log("wrong prop");
+              console.log(prop.toString());
+            }
       }
   }
     //what kind of structure do we expect?
