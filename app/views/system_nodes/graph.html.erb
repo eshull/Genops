@@ -1,0 +1,147 @@
+<h1>Graph for <%= @system_node.name %></h1>
+<div class="case-detail">
+  <h2>Case Detail</h2>
+</div>
+<div id="graph" style="text-align: center;"></div>
+<script>
+console.log('<%= @system_node.hello %>');
+
+// All of the dot code in a string
+var dotSrc = `<%= @system_node.dot.html_safe %>`;
+
+// the graph itself in a div
+var graphviz = d3.select("#graph").graphviz();
+
+
+
+
+
+function handleNodeClick() {
+  function loadDetailPane(routeId) {
+
+    $.getJSON("/system_nodes/" + routeId).done(renderDetailPane);
+    console.log(dotElement);
+    console.log("route id" + routeId);
+  }
+
+  function renderDetailPane(data) {
+    var content = $('<div/>');
+    var label1 = $('<h2/>');
+    var label2 = $('<h3/>');
+    var label3 = $('<h5/>');
+    var editLink = $('<%= link_to graph_system_node_path(@system_node) %>');
+    var editLink = $('<a href="/system_nodes/' + routeId + '/edit">edit</a>');
+    console.log(data.settings);
+
+    // data = {name: "adfadf", updated_at:"adfadfa" ,
+    // settings: {"mysettingnamex":"davalueofx"},
+    // stats:{"mycount1":2, "someothercount":4}};
+    label1.append(data.name)
+    label2.append(data.id)
+    label3.append(data.settings)
+    label1.appendTo(content);
+    label2.appendTo(content);
+    label3.appendTo(content);
+    editLink.appendTo(content);
+
+    for (var key in data.settings) {
+      // skip loop if the property is from prototype
+      if (!data.settings.hasOwnProperty(key)) continue;
+      var obj = data.settings[key];
+      for (var prop in obj) {
+          // skip loop if the property is from prototype
+          if(!obj.hasOwnProperty(prop)) continue;
+            if(prop.toString() == "key" || prop.toString() == "value"){
+            label3.append(prop + " : " + obj[prop] + '<br>')
+            label3.appendTo(content)
+            }else {
+              console.log("wrong prop");
+              console.log(prop.toString());
+            }
+      }
+  }
+    //what kind of structure do we expect?
+
+    /*
+      {name: adfadf, updated_at:adfadfa ,
+      settings: {"mysettingnamex":"davalueofx"},
+      stats:{"mycount1":2, "someothercount":4}
+    }
+    */
+
+    var statusTable = $('<table/>');
+    for (var statname in data.settings) {
+      var row = `<tr><td>${statname}</td><td>${data.settings[statname]}</td><tr/>`
+      row = $(row);
+      statusTable.append(row)
+    }
+    content.append(statusTable);
+    $('.case-detail').empty();
+    $('.case-detail').append(content);
+  }
+
+
+
+  // On click select all titles of this
+    var title = d3.select(this).selectAll('title').text().trim();
+  // On click select all text of this
+    var text = d3.select(this).selectAll('text').text();
+  // On click select id of this
+    var id = d3.select(this).attr('id');
+  // On click select class of this
+    var class1 = d3.select(this).attr('class');
+  // Replace titles with arrows
+    dotElement = title.replace('->',' -> ');
+
+    // Console log current element id, class, title, text and dotElement
+    console.log('Element id="%s" class="%s" title="%s" text="%s" dotElement="%s"', id, class1, title, text, dotElement);
+
+    console.log('NODE ID IS: id="%s"', id);
+
+    // var node = (this).getBoundingClientRect()
+    // var positionLeft = node.left - 180;
+    // var positionTop = node.top;
+    // console.log("Left position here " + node.left);
+    // console.log("Top position here " + node.top);
+    //
+    // $('body').append('<div id="close" class="graph-settings" style="left:'+ positionLeft + 'px; top:' + positionTop + 'px;"><a>x</a></div>')
+
+    var routeId = dotElement.replace('node_','');
+
+/*
+
+*/
+
+    // $('a').on('click', function(){
+    //   $(this).closest("#close").remove();
+    // });
+
+    loadDetailPane(routeId);
+}
+
+// function to render dot code using dotSrc
+function render(dotSrc) {
+    console.log('DOT source =', dotSrc);
+
+    // Split incoming string by line
+    var dotSrcLines = dotSrc.split('\n');
+
+    // Transition animation
+    transition1 = d3.transition()
+        .delay(100)
+        .duration(1000);
+
+    // applying transitions to the graph
+    graphviz
+        .transition(transition1)
+        .renderDot(dotSrc);
+
+    // Grabbing all nodes and edges
+    nodes = d3.selectAll('.node,.edge');
+
+    // On click function for node change
+    nodes.on("click", handleNodeClick);
+}
+render(dotSrc);
+
+</script>

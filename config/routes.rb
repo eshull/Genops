@@ -18,5 +18,6 @@ Rails.application.routes.draw do
 
   get '/system_nodes/:id/graph', to: 'system_nodes#graph_viz'
   get '/system_nodes/:id/d3', to: 'system_nodes#d3'
+  # get "/status" => 'systemNodes#graph_viz', as: 'status'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

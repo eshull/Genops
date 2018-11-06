@@ -22,7 +22,9 @@
 
       <table>
         <% @system_nodes.sort_by {|n| n.name}.each do |system_node| %>
-          <tr><td><%= link_to system_node.name, edit_system_node_path(system_node)   %></td><tr>
+          <tr><td><%# = link_to system_node.name, system_node_graph_path(system_node)%>
+            <a href="/system_nodes/<%= system_node.id %>/graph"><%= system_node.name %></a>
+          </td><tr>
         <% end %>
       </table>
 
