@@ -13,49 +13,77 @@ var dotSrc = `<%= @system_node.dot.html_safe %>`;
 var graphviz = d3.select("#graph").graphviz();
 
 
+function renderDetailPane(data) {
+  var content = $('<div/>');
+  var label = $('<h2/>');
+
+  // data = {name: "adfadf", updated_at:"adfadfa" ,
+  // settings: {"mysettingnamex":"davalueofx"},
+  // stats:{"mycount1":2, "someothercount":4}};
+  label.text(data.name)
+  label.appendTo(content);
+  //what kind of structure do we expect?
+
+  /*
+    {name: adfadf, updated_at:adfadfa ,
+    settings: {"mysettingnamex":"davalueofx"},
+    stats:{"mycount1":2, "someothercount":4}
+  }
+  */
+
+  var statusTable = $('<table/>');
+  for (var statname in data.stats) {
+    var row = `<tr><td>${statname}</td><td>${data.stats[statname]}</td><tr/>`
+    row = $(row);
+    statusTable.append(row)
+  }
+  content.append(statusTable);
+  $('.case-detail').empty();
+  $('.case-detail').append(content);
+}
+
+function loadDetailPane(routeId) {
+  // var jsondata = $.ajax({
+  //     type: "GET",
+  //     url: "/system_nodes/" + routeId,
+  //     dataType: "json",
+  //     success: function(data){
+  //
+  //         alert(data.name + routeId) // Will alert Max
+  //     }
+  // });
+  // console.log(jsondata.name + "jsondata");
+
+  $.getJSON("/system_nodes/" + routeId).done(renderDetailPane);
+  console.log(dotElement);
+  console.log("route id" + routeId);
+
+  // var json = $.getJSON('/system_nodes/' + routeId + '/settings.json').done(function(data){
+  //   console.log("the settings data is")
+  //   // console.log("parsed json: " + obj)
+  // })
 
 
+
+  // Console log record of things deleted from click
+  // console.log('Finding and deleting references to %s "%s" from the DOT source', class1, dotElement);
+
+  // Loop to find all associated links and delete each one
+  // for (i = 0; i < dotSrcLines.length;) {
+  //     if (dotSrcLines[i].indexOf(dotElement) >= 0) {
+  //         console.log('Deleting line %d: %s', i, dotSrcLines[i]);
+  //         dotSrcLines.splice(i, 1);
+  //     } else {
+  //         i++;
+  //     }
+  // }
+  // // Join lines in dot code string again
+  // dotSrc = dotSrcLines.join('\n');
+  // // Render new graph after change from click
+  // render(dotSrc);
+}
 
 function handleNodeClick() {
-  function loadDetailPane(routeId) {
-
-    $.getJSON("/system_nodes/" + routeId).done(renderDetailPane);
-    console.log(dotElement);
-    console.log("route id" + routeId);
-  }
-
-  function renderDetailPane(data) {
-    var content = $('<div/>');
-    var label1 = $('<h2/>');
-    var label2 = $('<h3/>');
-
-    // data = {name: "adfadf", updated_at:"adfadfa" ,
-    // settings: {"mysettingnamex":"davalueofx"},
-    // stats:{"mycount1":2, "someothercount":4}};
-    label1.append(data.name)
-    label2.append(data.id)
-    label1.appendTo(content);
-    label2.appendTo(content);
-    //what kind of structure do we expect?
-
-    /*
-      {name: adfadf, updated_at:adfadfa ,
-      settings: {"mysettingnamex":"davalueofx"},
-      stats:{"mycount1":2, "someothercount":4}
-    }
-    */
-
-    var statusTable = $('<table/>');
-    for (var statname in data.stats) {
-      var row = `<tr><td>${statname}</td><td>${data.stats[statname]}</td><tr/>`
-      row = $(row);
-      statusTable.append(row)
-    }
-    content.append(statusTable);
-    $('.case-detail').empty();
-    $('.case-detail').append(content);
-  }
-
 
 
   // On click select all titles of this

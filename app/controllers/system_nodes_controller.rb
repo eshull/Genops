@@ -48,6 +48,7 @@ class SystemNodesController < ApplicationController
   # GET /system_nodes/1
   # GET /system_nodes/1.json
   def show
+    @system_node = SystemNode.find(params[:id])
   end
 
   # GET /system_nodes/new
@@ -120,12 +121,22 @@ class SystemNodesController < ApplicationController
   def graph_viz
     @system_node = SystemNode.find(params[:id])
     @system_nodes = SystemNode.all
+     # @nodes_json render_to_string('system_nodes/index', formats: [:json])
+    # @node = SystemNode.find(params['node_id'])
   end
 
   def d3
     @system_node = SystemNode.find(params[:id])
     @system_nodes = SystemNode.all
   end
+
+  def status
+    @System_node = SystemNode.where(:id => params[:find_id])
+     respond_to do |format|
+         format.js
+     end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_system_node

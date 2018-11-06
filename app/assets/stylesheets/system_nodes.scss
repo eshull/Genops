@@ -9,5 +9,17 @@
 
 }
 #graph {
-  height: 3000px;
+  margin-left: -100px;
+  height: 1000px;
+}
+
+.case-detail {
+  position: fixed;
+  right: 0px;
+  top: 52px;
+  height: 100%;
+  width: 20%;
+  z-index: 1;
+  background-color: lightgrey;
+  padding: 20px;
 }
