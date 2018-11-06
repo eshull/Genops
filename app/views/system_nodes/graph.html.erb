@@ -70,8 +70,8 @@ function handleNodeClick() {
     */
 
     var statusTable = $('<table/>');
-    for (var statname in data.stats) {
-      var row = `<tr><td>${statname}</td><td>${data.stats[statname]}</td><tr/>`
+    for (var statname in data.settings) {
+      var row = `<tr><td>${statname}</td><td>${data.settings[statname]}</td><tr/>`
       row = $(row);
       statusTable.append(row)
     }
