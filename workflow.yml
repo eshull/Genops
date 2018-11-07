@@ -109,6 +109,14 @@ nodes:
     sources:
       - ORCAProvidersReceiveAlertOnEpicDashboard:
 
+  PortalOrder:
+    "type:workflow": "1"
+    targets:
+      - PortalOrderYes:
+      - PortalOrderNo:
+    sources:
+      - CernerResultsManuallyVerified:
+
   PortalOrderYes:
     "type:workflow": "1"
     targets:
@@ -119,7 +127,7 @@ nodes:
   PortalOrderNo:
     "type:workflow": "1"
     targets:
-      -PhysicianAccessesReportLinkedToEpicLabOrderAndOrderStatusUpdated:
+      -PhysicianAccessesReportLinkedToEpicLabOrder:
     sources:
       - PortalOrder:
 
