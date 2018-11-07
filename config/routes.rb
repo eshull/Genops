@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   resources :system_nodes do
     resources :system_links
     resources :settings
+    member do
+      get 'graph'
+    end
   end
 
   resources :system_links do

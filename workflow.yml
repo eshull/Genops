@@ -45,3 +45,114 @@ nodes:
       - SampleReceived:
     sources:
       - IdentifyLocationOfPathologySampleFromPortal:
+
+  SampleReceived:
+    "type:workflow": "1"
+    targets:
+      - SampleCorrect:
+    sources:
+      - DownloadPdfOrderFromPortalAndFaxToPathologyLabToRequestSample:
+
+  SampleCorrect:
+    "type:workflow": "1"
+    targets:
+      - UpdateOrderStatusInPortal:
+    sources:
+      - SampleReceived:
+
+  UpdateOrderStatusInPortal:
+    "type:workflow": "1"
+    targets:
+      - TestsAreRunByLab:
+    sources:
+      - SampleCorrect:
+
+  TestsAreRunByLab:
+    "type:workflow": "1"
+    targets:
+      - ResultsFinalizedByPathologistInReporter:
+    sources:
+      - UpdateOrderStatusInPortal:
+
+  ResultsFinalizedByPathologistInReporter:
+    "type:workflow": "1"
+    targets:
+      - OrderLocationUsesSyapse:
+    sources:
+      - TestsAreRunByLab:
+
+  OrderLocationUsesSyapse:
+    "type:workflow": "1"
+    targets:
+      - ResultsPushedToSyapseAutomatically:
+    sources:
+      - ResultsFinalizedByPathologistInReporter:
+
+  CernerResultsManuallyVerified:
+    "type:workflow": "1"
+    targets:
+      - ORCAProvidersReceiveAlertOnEpicDashboard:
+    sources:
+      - ResultsFinalizedByPathologistInReporter:
+
+  ORCAProvidersReceiveAlertOnEpicDashboard:
+    "type:workflow": "1"
+    targets:
+      - PhysicianAccessesReportLinkedToEpicLabOrder:
+    sources:
+      - CernerResultsManuallyVerified:
+
+  PhysicianAccessesReportLinkedToEpicLabOrder:
+    "type:workflow": "1"
+    targets:
+      - PortalOrder:
+    sources:
+      - ORCAProvidersReceiveAlertOnEpicDashboard:
+
+  PortalOrder:
+    "type:workflow": "1"
+    targets:
+      - PortalOrderYes:
+      - PortalOrderNo:
+    sources:
+      - CernerResultsManuallyVerified:
+
+  PortalOrderYes:
+    "type:workflow": "1"
+    targets:
+      - ResultsManuallyUploadedToPortalAndOrderStatusUpdated:
+    sources:
+      - PortalOrder:
+
+  PortalOrderNo:
+    "type:workflow": "1"
+    targets:
+      -PhysicianAccessesReportLinkedToEpicLabOrder:
+    sources:
+      - PortalOrder:
+
+  ResultsManuallyUploadedToPortalAndOrderStatusUpdated:
+    "type:workflow": "1"
+    targets:
+      -EmailIsSentToWhoeverPlacedOrderWithLinkInPortal:
+    sources:
+      - PortalOrderYes:
+
+  EmailIsSentToWhoeverPlacedOrderWithLinkInPortal:
+    "type:workflow": "1"
+    targets:
+      -OrdererLogsIntoPortalAndDownloadsPDFReport:
+    sources:
+      - ResultsManuallyUploadedToPortalAndOrderStatusUpdated:
+
+  OrdererLogsIntoPortalAndDownloadsPDFReport:
+    "type:workflow": "1"
+    targets:
+      -OrdererUploadsPDFReportToEpic(MediaTab)ORotherEMR:
+    sources:
+      - EmailIsSentToWhoeverPlacedOrderWithLinkInPortal:
+
+  OrdererUploadsPDFReportToEpic(MediaTab)ORotherEMR:
+    "type:workflow": "1"
+    sources:
+      - OrdererLogsIntoPortalAndDownloadsPDFReport:

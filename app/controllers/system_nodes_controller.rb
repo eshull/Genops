@@ -118,7 +118,7 @@ class SystemNodesController < ApplicationController
     redirect_to action: "edit", id: target_id
   end
 
-  def graph_viz
+  def graph
     @system_node = SystemNode.find(params[:id])
     @system_nodes = SystemNode.all
      # @nodes_json render_to_string('system_nodes/index', formats: [:json])

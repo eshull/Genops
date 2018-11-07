@@ -16,18 +16,33 @@
 }
 
 svg {
-  height: 800px;
+  height: 400px;
   width: 1100px;
   margin-left: -240px;
 }
 
 .case-detail {
-  position: fixed;
+  position: absolute;
   right: 0px;
   top: 52px;
-  height: 100%;
-  width: 20%;
+  height: 95%;
+  width: 23%;
   z-index: 1;
-  background-color: lightgrey;
+  background-color: white;
+  box-shadow: 5px 10px 40px #888888;
+  padding: 20px;
+}
+
+.case-detail div table tr:nth-child(odd) {
+  border-bottom: 1px solid black;
+}
+.case-detail div table tr:nth-child(even) {
+  border-top: 1px solid black;
+}
+.case-detail div a {
+  margin: 30px;
+  font-size: 20px;
+}
+.case-detail div {
   padding: 20px;
 }
