@@ -61,23 +61,34 @@ function handleNodeClick() {
       }
   }
   // table view
+  // document.getElementsByClassName('case-detail').innerHTML = "";
+  // $('.case-detail').removeChild();
+  var graphLink = $('<a href="/system_nodes/' + routeId + '/graph">Graph</a>');
+  var editLink = $('<a href="/system_nodes/' + routeId + '/edit">Edit</a>');
   var content = $('<div/>');
+  var table = $('<table/>');
+  var tableRow = $('<tr/>');
+  var tableData = $('<td/>');
   var label1 = $('<h2/>');
   var label2 = $('<h3/>');
   var label3 = $('<h5/>');
-  var graphLink = $('<a href="/system_nodes/' + routeId + '/graph">graph</a>');
-  var editLink = $('<a href="/system_nodes/' + routeId + '/edit">edit</a>');
+
   console.log(data.settings);
 
   // data = {name: "adfadf", updated_at:"adfadfa" ,
   // settings: {"mysettingnamex":"davalueofx"},
   // stats:{"mycount1":2, "someothercount":4}};
+
   label1.append(data.name)
-  label2.append(data.id)
+  // label2.append(data.id)
   label3.append(data.settings)
   label1.appendTo(content);
-  label2.appendTo(content);
+  // label2.appendTo(content);
   label3.appendTo(content);
+  content.appendTo(".case-detail");
+  table.appendTo(content);
+  tableRow.appendTo(table);
+    // tableData.appendTo(tableRow);
   graphLink.appendTo(content);
   editLink.appendTo(content);
     for (var key in data.settings) {
@@ -88,14 +99,26 @@ function handleNodeClick() {
           // skip loop if the property is from prototype
           if(!obj.hasOwnProperty(prop)) continue;
             if(prop.toString() == "key" || prop.toString() == "value"){
-            label3.append(prop + " : " + obj[prop] + '<br>')
-            label3.appendTo(content)
+            // label3.append(prop + " : " + obj[prop] + '<br>')
+            // table.append()
+            var td = $('<tr>' + '<td>' + obj[prop] + '</td>' + '</tr>')
+            td.appendTo(table)
+            // tableRow.html('<td>' + prop + '</td>' + '<td>' + obj[prop] + '</td>')
+            console.log("loop counter");
+
+            // tableRow.append('<td>' + obj[prop] + '</td>' + '</tr>')
+            // table.append('</tr>')
+
+            // tableData.append(obj[prop])
+            // tableData.appendTo(table)
             }else {
               console.log("wrong prop");
               console.log(prop.toString());
             }
       }
   }
+  $('.case-detail').empty();
+ $('.case-detail').append(content);
     //what kind of structure do we expect?
 
     /*
@@ -104,16 +127,16 @@ function handleNodeClick() {
       stats:{"mycount1":2, "someothercount":4}
     }
     */
-
-    var statusTable = $('<table/>');
-    for (var statname in data.stats) {
-      var row = `<tr><td>${statname}</td><td>${data.stats[statname]}</td><tr/>`
-      row = $(row);
-      statusTable.append(row)
-    }
-    content.append(statusTable);
-    $('.case-detail').empty();
-    $('.case-detail').append(content);
+// Davids Table
+    // var statusTable = $('<table/>');
+    // for (var statname in data.stats) {
+    //   var row = `<tr><td>${statname}</td><td>${data.stats[statname]}</td><tr/>`
+    //   row = $(row);
+    //   statusTable.append(row)
+    // }
+    // content.append(statusTable);
+    // $('.case-detail').empty();
+    // $('.case-detail').append(content);
   }
 
 
