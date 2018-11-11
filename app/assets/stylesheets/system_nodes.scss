@@ -5,9 +5,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-body {
-  background-color: #eaeff2;
-}
+
 #graph {
   margin-left: -100px;
   height: 600px;
@@ -21,8 +19,21 @@ svg {
   margin-left: -240px;
 }
 
-.col-md-4 {
-   word-wrap: break-word;
+.banner {
+  margin-top: -40px;
+  background-color: #2f5287;
+  width: 100%;
+  color: white;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.banner h1 {
+  font-size: 55px;
+  letter-spacing: 3px;
+  margin-top: 40px;
 }
 
 .case-detail {
@@ -35,6 +46,7 @@ svg {
   background-color: white;
   box-shadow: 5px 10px 40px #888888;
   padding: 20px;
+  word-wrap: break-word;
 }
 
 .case-detail div table tr:nth-child(odd) {
