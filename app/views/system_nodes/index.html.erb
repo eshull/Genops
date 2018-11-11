@@ -1,9 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-
-
-<%= link_to 'New System Node', new_system_node_path %>
-<%= link_to 'Show', @system_node %>
+<div class="banner">
+  <h1>GENOPS</h1>
+</div>
 
 <h1>System Nodes</h1>
 
@@ -18,12 +17,13 @@
 
   </ul>
   <div class="tab-content" id="myTabContent">
-    <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="tab-pane active page" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
       <table>
         <% @system_nodes.sort_by {|n| n.name}.each do |system_node| %>
           <tr><td><%# = link_to system_node.name, system_node_graph_path(system_node)%>
-            <a href="/system_nodes/<%= system_node.id %>/graph"><%= system_node.name %></a>
+            <button class="btn btn-info" ><a href="/system_nodes/<%= system_node.id %>/graph"><%= system_node.name %></a></button>
+
           </td><tr>
         <% end %>
       </table>
