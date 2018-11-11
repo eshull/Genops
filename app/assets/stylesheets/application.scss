@@ -21,6 +21,10 @@
   background-color: #192b47;
 }
 
+body {
+  background-color: #eaeff2;
+}
+
 footer {
   color: white;
   background-color: #192b47;
@@ -68,6 +72,13 @@ table>tbody>tr:last-child {
 
 .col-md-12 {
   padding: 10px;
+  // background-color: white;
+}
+
+.col-md-10 {
+  padding: 10px;
+  background-color: white;
+  margin-bottom: 40px;
 }
 
 .page {
@@ -76,6 +87,7 @@ table>tbody>tr:last-child {
   padding: 10px;
   display: flex;
   flex-direction: column;
+  background-color: white;
 }
 
 .break {

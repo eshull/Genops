@@ -1,5 +1,5 @@
 <% @system_nodes.each do |system_node| %>
-  <div class="col-md-4">
+  <div class="col-md-10">
     <h2><%= system_node.name %></h2>  </br>
     <%= system_node.address %> </br>
     <%= system_node.description %> </br>
@@ -12,13 +12,14 @@
     <div class="node-settings">
       <table class="table">
        <tr>
-         <th>Key:</th>
-         <th>Value:</th>
+         <th>Settings:</th>
        </tr>
       <% system_node.settings.each do |setting| %>
            <tr>
-             <td>Key: <%= setting.key %></td>
-             <td>Value: <%= setting.value %></td>
+             <td> <h4><%= setting.key %></h4> </td>
+           </tr>
+           <tr>
+             <td><%= setting.value %></td>
            </tr>
         <% end %>
       </table>
