@@ -1,6 +1,5 @@
 <h1>Graph for <%= @system_node.name %></h1>
 <div class="inspector">
-  <h2>Case Detail</h2>
   <div class="case-detail">
   </div>
   <h2>Status Bar</h2>
@@ -118,31 +117,11 @@ function handleNodeClick() {
               console.log(prop.toString());
             }
       }
-  }
-  $('.case-detail').empty();
- $('.case-detail').append(content);
-
-    //what kind of structure do we expect?
-
-    /*
-      {name: adfadf, updated_at:adfadfa ,
-      settings: {"mysettingnamex":"davalueofx"},
-      stats:{"mycount1":2, "someothercount":4}
     }
-    */
-// Davids Table
-    // var statusTable = $('<table/>');
-    // for (var statname in data.stats) {
-    //   var row = `<tr><td>${statname}</td><td>${data.stats[statname]}</td><tr/>`
-    //   row = $(row);
-    //   statusTable.append(row)
-    // }
-    // content.append(statusTable);
-    // $('.case-detail').empty();
-    // $('.case-detail').append(content);
+  $('.case-detail').empty();
+  $('.case-detail').append(content);
+
   }
-
-
 
   // On click select all titles of this
     var title = d3.select(this).selectAll('title').text().trim();
@@ -178,25 +157,26 @@ console.log("fancy" + routeId);
       3, 4, 39, 15, 4, 65, 15, 20, 19, 5, 7, 9, 31, 10
     ]
 
-  var svgContainer = d3.select(".bar-graph").append("svg")
-                                      .attr("width", 250)
-                                      .attr("height", 500)
+    var svgContainer = d3.select(".bar-graph").append("svg")
+                                        .attr("width", 250)
+                                        .attr("height", 500)
 
-  var rectangles = svgContainer.selectAll("rect")
-                               .data(dataImport)
-                               .enter()
-                               .append("rect");
-  var y = (-20)
-  var rectangleAttributes = rectangles
-                            .attr("x", function (d) { return 0; })
-                            .attr("y", function (d) { return y = y + 30; })
-                            .attr("height", function (d) { return 25; })
-                            .attr("width", function (d) { return d * 3; })
-                            .style("fill", function(d) {
-                                if (d > 60) {return '#fe482f'}
-                                else if (d > 30 && d < 59) {return '#ef832d'}
-                                else 	{ return '#00bcd6' }
-                            ;})
+    var rectangles = svgContainer.selectAll("rect")
+                                 .data(dataImport)
+                                 .enter()
+                                 .append("rect");
+    var y = (-20)
+    var rectangleAttributes = rectangles
+                              .attr("x", function (d) { return 0; })
+                              .attr("y", function (d) { return y = y + 30; })
+                              .attr("height", function (d) { return 25; })
+                              .attr("width", function (d) { return d * 3; })
+                              .style("fill", function(d) {
+                                  if (d > 60) {return '#fe482f'}
+                                  else if (d > 30 && d < 59) {return '#ff7b11'}
+                                  else 	{ return '#00bcd6' }
+                              ;})
+
   }
     // $('a').on('click', function(){
     //   $(this).closest("#close").remove();
