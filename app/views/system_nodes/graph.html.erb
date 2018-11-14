@@ -151,23 +151,24 @@ function handleNodeClick() {
 console.log("fancy" + routeId);
 
   function barGraph() {
-    // var div = $('<div/>');
-    // div.appendTo(".case-detail");
-    var dataImport = [
-      3, 4, 39, 15, 4, 65, 15, 20, 19, 5, 7, 9, 31, 10
-    ]
+
+    var dataImport = [3, 4, 39, 15, 4, 65, 15, 20, 19, 5, 7, 9, 31, 10];
+
+    var daysCounted = dataImport.map(function(element) {
+      return element = dataImport.length;
+    });
 
     var svgContainer = d3.select(".bar-graph").append("svg")
                                         .attr("width", 250)
-                                        .attr("height", 500)
+                                        .attr("height", 450)
 
     var rectangles = svgContainer.selectAll("rect")
                                  .data(dataImport)
                                  .enter()
                                  .append("rect");
-    var y = (-20)
+    var y = (-10)
     var rectangleAttributes = rectangles
-                              .attr("x", function (d) { return 0; })
+                              .attr("x", function (d) { return 20; })
                               .attr("y", function (d) { return y = y + 30; })
                               .attr("height", function (d) { return 25; })
                               .attr("width", function (d) { return d * 3; })
@@ -176,6 +177,26 @@ console.log("fancy" + routeId);
                                   else if (d > 30 && d < 59) {return '#ff7b11'}
                                   else 	{ return '#00bcd6' }
                               ;})
+
+                          var xscale = d3.scaleLinear()
+                             .domain([0, d3.max(dataImport)])
+                             .range([30, 250]);
+
+                          var yscale = d3.scaleLinear()
+                             .domain([0, d3.max(daysCounted)])
+                             // y axis [height, position]
+                             .range([425, 0]);
+                          var x_axis = d3.axisTop()
+                              .scale(xscale);
+                          var y_axis = d3.axisLeft()
+                              .scale(yscale);
+                          svgContainer.append("g")
+                              .attr("transform", "translate(20, 30)")
+                              .call(y_axis);
+                              var xAxisTranslate = 20;
+                          svgContainer.append("g")
+                             .attr("transform", "translate(-10, " + xAxisTranslate  +")")
+                             .call(x_axis)
 
   }
     // $('a').on('click', function(){
