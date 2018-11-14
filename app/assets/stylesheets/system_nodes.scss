@@ -14,9 +14,9 @@
 }
 
 svg {
-  height: 400px;
-  width: 1100px;
-  margin-left: -240px;
+  border: 1px solid grey;
+  padding: 20px;
+  background: white;
 }
 
 .banner {
@@ -36,17 +36,21 @@ svg {
   margin-top: 40px;
 }
 
-.case-detail {
+.inspector {
   position: absolute;
   right: 0px;
   top: 52px;
-  height: 95%;
+  height: auto;
   width: 23%;
   z-index: 1;
   background-color: white;
-  box-shadow: 5px 10px 40px #888888;
+  border: solid 1px grey;
   padding: 20px;
   word-wrap: break-word;
+}
+
+.bar-graph {
+  padding: 20px;
 }
 
 .case-detail div table tr:nth-child(odd) {

@@ -1,7 +1,13 @@
 <h1>Graph for <%= @system_node.name %></h1>
-<div class="case-detail">
+<div class="inspector">
   <h2>Case Detail</h2>
+  <div class="case-detail">
+  </div>
+  <h2>Status Bar</h2>
+  <div class="bar-graph">
+  </div>
 </div>
+
 <div id="graph" style="text-align: center;"></div>
 <script>
 console.log('<%= @system_node.hello %>');
@@ -25,41 +31,41 @@ function handleNodeClick() {
   }
 
   function renderDetailPane(data) {
-    var content = $('<div/>');
-    var label1 = $('<h2/>');
-    var label2 = $('<h3/>');
-    var label3 = $('<h5/>');
-    var editLink = $('<%= link_to graph_system_node_path(@system_node) %>');
-    var editLink = $('<a href="/system_nodes/' + routeId + '/edit">edit</a>');
-    console.log(data.settings);
-
-    // data = {name: "adfadf", updated_at:"adfadfa" ,
-    // settings: {"mysettingnamex":"davalueofx"},
-    // stats:{"mycount1":2, "someothercount":4}};
-    label1.append(data.name)
-    label2.append(data.id)
-    label3.append(data.settings)
-    label1.appendTo(content);
-    label2.appendTo(content);
-    label3.appendTo(content);
-    editLink.appendTo(content);
-
-    for (var key in data.settings) {
-      // skip loop if the property is from prototype
-      if (!data.settings.hasOwnProperty(key)) continue;
-      var obj = data.settings[key];
-      for (var prop in obj) {
-          // skip loop if the property is from prototype
-          if(!obj.hasOwnProperty(prop)) continue;
-            if(prop.toString() == "key" || prop.toString() == "value"){
-            label3.append(prop + " : " + obj[prop] + '<br>')
-            label3.appendTo(content)
-            }else {
-              console.log("wrong prop");
-              console.log(prop.toString());
-            }
-      }
-  }
+  //   var content = $('<div/>');
+  //   var label1 = $('<h2/>');
+  //   var label2 = $('<h3/>');
+  //   var label3 = $('<h5/>');
+  //   var editLink = $('<%= link_to graph_system_node_path(@system_node) %>');
+  //   var editLink = $('<a href="/system_nodes/' + routeId + '/edit">edit</a>');
+  //   console.log(data.settings);
+  //
+  //   // data = {name: "adfadf", updated_at:"adfadfa" ,
+  //   // settings: {"mysettingnamex":"davalueofx"},
+  //   // stats:{"mycount1":2, "someothercount":4}};
+  //   label1.append(data.name)
+  //   label2.append(data.id)
+  //   label3.append(data.settings)
+  //   label1.appendTo(content);
+  //   label2.appendTo(content);
+  //   label3.appendTo(content);
+  //   editLink.appendTo(content);
+  //
+  //   for (var key in data.settings) {
+  //     // skip loop if the property is from prototype
+  //     if (!data.settings.hasOwnProperty(key)) continue;
+  //     var obj = data.settings[key];
+  //     for (var prop in obj) {
+  //         // skip loop if the property is from prototype
+  //         if(!obj.hasOwnProperty(prop)) continue;
+  //           if(prop.toString() == "key" || prop.toString() == "value"){
+  //           label3.append(prop + " : " + obj[prop] + '<br>')
+  //           label3.appendTo(content)
+  //           }else {
+  //             console.log("wrong prop");
+  //             console.log(prop.toString());
+  //           }
+  //     }
+  // }
   // table view
   // document.getElementsByClassName('case-detail').innerHTML = "";
   // $('.case-detail').removeChild();
@@ -74,10 +80,6 @@ function handleNodeClick() {
   var label3 = $('<h5/>');
 
   console.log(data.settings);
-
-  // data = {name: "adfadf", updated_at:"adfadfa" ,
-  // settings: {"mysettingnamex":"davalueofx"},
-  // stats:{"mycount1":2, "someothercount":4}};
 
   label1.append(data.name)
   // label2.append(data.id)
@@ -119,6 +121,7 @@ function handleNodeClick() {
   }
   $('.case-detail').empty();
  $('.case-detail').append(content);
+
     //what kind of structure do we expect?
 
     /*
@@ -166,16 +169,42 @@ function handleNodeClick() {
     // $('body').append('<div id="close" class="graph-settings" style="left:'+ positionLeft + 'px; top:' + positionTop + 'px;"><a>x</a></div>')
 
     var routeId = dotElement.replace('node_','');
+console.log("fancy" + routeId);
 
-/*
+  function barGraph() {
+    // var div = $('<div/>');
+    // div.appendTo(".case-detail");
+    var dataImport = [
+      3, 4, 39, 15, 4, 65, 15, 20, 19, 5, 7, 9, 31, 10
+    ]
 
-*/
+  var svgContainer = d3.select(".bar-graph").append("svg")
+                                      .attr("width", 250)
+                                      .attr("height", 500)
 
+  var rectangles = svgContainer.selectAll("rect")
+                               .data(dataImport)
+                               .enter()
+                               .append("rect");
+  var y = (-20)
+  var rectangleAttributes = rectangles
+                            .attr("x", function (d) { return 0; })
+                            .attr("y", function (d) { return y = y + 30; })
+                            .attr("height", function (d) { return 25; })
+                            .attr("width", function (d) { return d * 3; })
+                            .style("fill", function(d) {
+                                if (d > 60) {return '#fe482f'}
+                                else if (d > 30 && d < 59) {return '#ef832d'}
+                                else 	{ return '#00bcd6' }
+                            ;})
+  }
     // $('a').on('click', function(){
     //   $(this).closest("#close").remove();
     // });
 
     loadDetailPane(routeId);
+    $('.bar-graph').empty();
+    barGraph();
 }
 
 // function to render dot code using dotSrc
