@@ -25,6 +25,14 @@ body {
   background-color: #eaeff2;
 }
 
+div {
+  word-wrap: break-word;
+}
+
+th {
+  max-width: 300px;
+}
+
 footer {
   color: white;
   background-color: #192b47;
