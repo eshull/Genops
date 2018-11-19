@@ -1,42 +1,6 @@
 class SystemNodesController < ApplicationController
   before_action :set_system_node, only: [:show, :edit, :update, :destroy]
-  #
-  # def update
-  #
-  #     # Get the node
-  #     @system_node = SystemNode.find_by_id(params[:id])
-  #     @system_links = @system_node.targets.update(update_params)
-  #
-  #     # First, we find the difference between the associations
-  #     # BEFORE the form was filled out, and what is being
-  #     # submitted.
-  #     # deleted_ass_ids = (
-  #     #   @system_node.links.collect(&:id) -
-  #     #   params[:system_node][:from_node_ids].reject(&:blank?).map(&:to_i)
-  #     # )
-  #     if @system_node.update(update_params)
-  #       # AFTER we update the system_node, destroy all the records
-  #       # that differ from before and after the form was
-  #       # submitted.
-  #       # deleted_ass_ids.each do |ass_id|
-  #       #   ids = [@system_node.id, ass_id]
-  #       #   SystemLink.where(
-  #       #     :from_node_id => ids,
-  #       #     :to_node_id => ids
-  #       #   ).destroy_all
-  #       # end
-  #       redirect_to(@system_node, :notice => 'Page saved!')
-  #
-  #     else
-  #       render 'edit'
-  #     end
-  #   end
 
-
-
-
-  # GET /system_nodes
-  # GET /system_nodes.json
   def index
     if params["type"]
       @system_nodes = SystemNode.query_by_type(params["type"])
@@ -45,29 +9,20 @@ class SystemNodesController < ApplicationController
     end
   end
 
-  # GET /system_nodes/1
-  # GET /system_nodes/1.json
   def show
     @system_node = SystemNode.find(params[:id])
   end
 
-  # GET /system_nodes/new
   def new
     @system_node = SystemNode.new
   end
 
-  # GET /system_nodes/1/edit
   def edit
     @system_node = SystemNode.find(params[:id])
     @source = SystemLink.where(from_node_id: @system_node.id)
     @target = SystemLink.where(to_node_id: @system_node.id)
-    # binding.pry
-    # @target = SystemLink.find(params[:to_node_id])
-    # @source = SystemLink.find(params[:from_node_id])
   end
 
-  # POST /system_nodes
-  # POST /system_nodes.json
   def create
     @system_node = SystemNode.new(system_node_params)
 
@@ -121,8 +76,6 @@ class SystemNodesController < ApplicationController
   def graph
     @system_node = SystemNode.find(params[:id])
     @system_nodes = SystemNode.all
-     # @nodes_json render_to_string('system_nodes/index', formats: [:json])
-    # @node = SystemNode.find(params['node_id'])
   end
 
   def d3
