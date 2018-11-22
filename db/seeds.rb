@@ -7,27 +7,29 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require "yaml"
 
-data = YAML.load_file("reporter.yml")
+# data = YAML.load_file("reporter.yml")
 
-nodes = SystemNode.yaml_to_seed(data)
+
 # nodes.has_key? method
-binding.pry
-nodes.each_key {|key| puts key }
 
-SystemNode.destroy_all
-Setting.destroy_all
-SystemLink.destroy_all
+# nodes.each_key {|key| puts key }
 
-SystemNode.create!(name: 'NgsReviewerApp', address: 'reporter address example', description: 'reporter description example')
+# SystemNode.destroy_all
+# Setting.destroy_all
+# SystemLink.destroy_all
 
-SystemNode.create!(name: 'Reviewer', address: 'reviewer address example', description: 'reviewer description example')
+SystemNode.import_yaml("reporter.yml")
 
-SystemNode.create!(name: 'Cerner', address: 'cerner address example', description: 'cerner description example')
-
-SystemNode.create!(name: 'The Blade', address: 'The Blade address example', description: 'the blade description example')
-
-SystemNode.create!(name: 'Thing 1', address: 'Thing 1 address example', description: 'Thing 1 description example')
-
-nodes.each do |node|
-  SystemNode.find_or_create_by!(name: node[0])
-end
+# SystemNode.create!(name: 'NgsReviewerApp', address: 'reporter address example', description: 'reporter description example')
+#
+# SystemNode.create!(name: 'Reviewer', address: 'reviewer address example', description: 'reviewer description example')
+#
+# SystemNode.create!(name: 'Cerner', address: 'cerner address example', description: 'cerner description example')
+#
+# SystemNode.create!(name: 'The Blade', address: 'The Blade address example', description: 'the blade description example')
+#
+# SystemNode.create!(name: 'Thing 1', address: 'Thing 1 address example', description: 'Thing 1 description example')
+#
+# nodes.each do |node|
+#   SystemNode.find_or_create_by!(name: node[0])
+# end

@@ -5,33 +5,51 @@ nodes:
     http: "http://170.220.59.152:8345"
     https: "https://ngsreporter.mgl.providence.org"
     targets:
-      - SeedFileTest:
+      - ExampleSystem:
       - NgsReviewerApp:
-      - UnoPdf:
-      - NeverBeforeExisted:
     sources:
-      - MysteriousParent:
-      - MagicImportTest:
+      - UnoPdf:
+      - TheBlade:
 
   NgsReviewerApp:
     environment: "production"
     github: "https://github.com/pdxmolab/NgsReporter.git"
     http: "http://170.220.59.150:8345"
     https: "https://ngsreviewer.mgl.providence.org"
+      targets:
+        - ExampleSystem:
+        - NgsReporterApp:
+      sources:
+        - UnoPdf:
+        - TheBlade:
 
-  SeedFileTest:
+  UnoPdf:
     environment: "production"
     github: "https://github.com/pdxmolab/NgsReporter.git"
     http: "http://170.220.59.150:8345"
     https: "https://ngsreviewer.mgl.providence.org"
 
-  MagicImportTest:
-    stupidkeyname: "stupidvalue"
-    amiaparent: "yesiamnow"
+  TheBlade:
+    environment: "production"
+    github: "https://github.com/pdxmolab/NgsReporter.git"
+    http: "http://170.220.59.150:8345"
+    https: "https://ngsreviewer.mgl.providence.org"
+
+  ExampleSystem:
+    environment: "production"
+    github: "https://github.com/pdxmolab/NgsReporter.git"
+    http: "http://170.220.59.150:8345"
+    https: "https://ngsreviewer.mgl.providence.org"
+      targets:
+        - NgsReviewerApp:
+        - NgsReporterApp:
+      sources:
+        - UnoPdf:
+        - TheBlade:
 
   PipelineOne:
     "type:pipeline": "1"
-    
+
 
 # nodes=>{
       # "NgsReporterApp"=>{
